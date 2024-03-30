@@ -25,8 +25,19 @@ module.exports = {
         sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
       },
       colors: {
-        primary: colors.pink,
-        gray: colors.gray,
+        primary: {
+          50: '#FFFBF7',
+          100: '#FFE7D0',
+          200: '#FFD4A9',
+          300: '#FFC081',
+          400: '#FFAD5A',
+          500: '#FF9933',
+          600: '#E47200',
+          700: '#BC5E00',
+          800: '#954B00',
+          900: '#6E3700',
+          950: '#472300',
+        },
       },
       typography: ({ theme }) => ({
         DEFAULT: {
@@ -38,12 +49,16 @@ module.exports = {
               },
               code: { color: theme('colors.primary.400') },
             },
-            'h1,h2': {
-              fontWeight: '700',
+            h1: {
+              fontWeight: '600',
+              letterSpacing: theme('letterSpacing.tight'),
+            },
+            h2: {
+              fontWeight: '500',
               letterSpacing: theme('letterSpacing.tight'),
             },
             h3: {
-              fontWeight: '600',
+              fontWeight: '400',
             },
             code: {
               color: theme('colors.indigo.500'),
