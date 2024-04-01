@@ -22,14 +22,14 @@ export default function Home({ posts }) {
         </div>
         <div className="mr-8 pt-6">
           <h1 className="pb-6 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Hello, I’m Ritwik Lodhiya
+            Hello World!
           </h1>
           <h2 className="prose text-lg text-gray-600 dark:text-gray-400">
-            {`Welcome to my blog - ${siteMetadata.description}. I am a software engineer based in San Francisco, CA. In my free time, I like developing `}
+            {`Welcome to my small corner on the world wide web. I am a software engineer based in San Francisco, CA. In my free time, I like developing `}
             <Link href="/projects">side projects</Link>
             {' and '}
-            <Link href="/blog">blogging</Link>
-            {' about them. Have a good read!'}
+            <Link href="/blog">writing</Link>
+            {' about various things.'}
           </h2>
         </div>
       </div>
