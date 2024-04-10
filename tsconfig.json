@@ -28,6 +28,9 @@
         "name": "next"
       }
     ],
+    "typeRoots": [
+      "node_modules/@hcaptcha"
+    ],
     "strictNullChecks": true
   },
   "include": [

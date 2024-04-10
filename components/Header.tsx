@@ -15,24 +15,20 @@ const Header = () => {
             <div className="mr-3">
               <Logo />
             </div>
-            <div className="hidden h-6 text-2xl font-semibold sm:block">
-              {siteMetadata.headerTitle}
-            </div>
+            <div className="h-6 text-3xl font-extrabold sm:block">{siteMetadata.headerTitle}</div>
           </div>
         </Link>
       </div>
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        {headerNavLinks
-          .filter((link) => link.href !== '/')
-          .map((link) => (
-            <Link
-              key={link.title}
-              href={link.href}
-              className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
-            >
-              {link.title}
-            </Link>
-          ))}
+        {headerNavLinks.map((link) => (
+          <Link
+            key={link.title}
+            href={link.href}
+            className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+          >
+            {link.title}
+          </Link>
+        ))}
         <SearchButton />
         <ThemeSwitch />
         <MobileNav />
