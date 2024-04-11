@@ -2,13 +2,25 @@
 
 import { Transition } from '@headlessui/react'
 import { useState, useRef, useEffect, MouseEvent } from 'react'
-import { GREETINGS, Greeting } from 'data/greetings'
+import { FLAGS, GREETINGS, Greeting } from 'data/greetings'
 import PlaySvg from './common-icons/play-circle-solid.svg'
 import PauseSvg from './common-icons/pause-circle-solid.svg'
+import Image from '@/components/Image'
+
+function getFlagHiddenMap(showFlags: Set<string>): Map<string, boolean> {
+  const map = new Map<string, boolean>()
+  FLAGS.forEach((flag) => {
+    map[flag] = !showFlags.has(flag)
+  })
+  return map
+}
 
 export default function Greeting() {
   const [greetingIndex, setGreetingIndex] = useState<number>(0)
   const [greeting, setGreeting] = useState<Greeting>(GREETINGS[0])
+  const [flagsHiddenMap, setFlagsHiddenMap] = useState<Map<string, boolean>>(
+    getFlagHiddenMap(new Set(GREETINGS[0].flags))
+  )
   const [isShowing, setIsShowing] = useState<boolean>(true)
   const [isStarted, setIsStarted] = useState<boolean>(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -29,6 +41,7 @@ export default function Greeting() {
     const next = indices[randomIndex]
     setGreetingIndex(next.index)
     setGreeting(next.greeting)
+    setFlagsHiddenMap(getFlagHiddenMap(new Set(next.greeting.flags)))
   }
 
   function switchGreeting() {
@@ -37,7 +50,7 @@ export default function Greeting() {
       setTimeout(() => {
         nextGreeting()
         setIsShowing(true)
-      }, 90)
+      }, 100)
     }
   }
 
@@ -90,6 +103,22 @@ export default function Greeting() {
             <span title={`${greeting.message} (Language: ${greeting.language})`}>
               {greeting.message}
             </span>
+          </div>
+          <div className="flex flex-row align-middle">
+            {FLAGS.map((flag) => {
+              return (
+                <div className="flex items-center align-middle" key={flag}>
+                  <Image
+                    title={flag}
+                    src={`/static/icons/flags/4x3/${flag}.svg`}
+                    alt=""
+                    className={`hidden h-auto w-2/3 rounded-full`}
+                    width={0}
+                    height={0}
+                  />
+                </div>
+              )
+            })}
           </div>
         </Transition>
         <div className="flex flex-row-reverse align-middle">
