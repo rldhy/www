@@ -1,6 +1,10 @@
 {
-  "name": "tailwind-nextjs-starter-blog",
-  "version": "2.1.0",
+  "name": "personal-blog",
+  "description": "",
+  "repository": "https://github.com/rldhy/personal-blog",
+  "license": "MIT",
+  "author": "Ritwik Lodhiya <hello@rlodhiya.dev>",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "next dev",
@@ -55,7 +59,6 @@
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "husky": "^8.0.0",
     "lint-staged": "^13.0.0",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.5.11",
