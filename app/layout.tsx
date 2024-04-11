@@ -1,4 +1,3 @@
-import 'css/custom.css'
 import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 

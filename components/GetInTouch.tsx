@@ -76,6 +76,13 @@ const GetInTouch = () => {
     hcaptchaRef.current?.resetCaptcha()
   }
 
+  function isButtonDisabled() {
+    if (!hcaptchaSubmited) {
+      return true
+    }
+    return !buttonEnabled
+  }
+
   function lockSubmitButton() {
     setButtonText('Sending')
     setButtonEnabled(false)
@@ -255,7 +262,7 @@ const GetInTouch = () => {
           <div className="flex flex-row-reverse items-center">
             <button
               type="submit"
-              disabled={!buttonEnabled}
+              disabled={isButtonDisabled()}
               className="m-1.5 flex flex-row items-center rounded-md bg-primary-500 px-10 py-2 align-middle text-lg font-bold text-gray-700 hover:bg-primary-600 dark:hover:bg-primary-400"
             >
               {buttonText}
