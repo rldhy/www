@@ -13,7 +13,7 @@ export default function Home({ posts }) {
       <div className="my-6 flex flex-col items-center gap-x-12 xl:mb-12 xl:flex-row">
         <div className="mr-8 pt-6">
           <h1 className="pb-6 text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            <Greeting />
+            <Greeting showFlags={false} />
           </h1>
           <div className="flex flex-row items-center space-x-2 pt-8">
             <Image
