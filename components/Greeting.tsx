@@ -2,7 +2,7 @@
 
 import { Transition } from '@headlessui/react'
 import { useState, useRef, useEffect, MouseEvent } from 'react'
-import { FLAGS, GREETINGS, Greeting } from 'data/greetings'
+import { FLAGS, GREETINGS, GreetingInfo } from 'data/greetings'
 import PlaySvg from './common-icons/play-circle-solid.svg'
 import PauseSvg from './common-icons/pause-circle-solid.svg'
 import Image from '@/components/Image'
@@ -10,14 +10,14 @@ import Image from '@/components/Image'
 function getFlagHiddenMap(showFlags: Set<string>): Map<string, boolean> {
   const map: Map<string, boolean> = new Map<string, boolean>()
   FLAGS.forEach((flag) => {
-    map[flag] = !showFlags.has(flag)
+    map[flag.name] = !showFlags.has(flag.name)
   })
   return map
 }
 
 export default function Greeting({ showFlags }) {
   const [greetingIndex, setGreetingIndex] = useState<number>(0)
-  const [greeting, setGreeting] = useState<Greeting>(GREETINGS[0])
+  const [greeting, setGreeting] = useState<GreetingInfo>(GREETINGS[0])
   const [flagsHiddenMap, setFlagsHiddenMap] = useState<Map<string, boolean>>(
     getFlagHiddenMap(new Set(GREETINGS[0].flags))
   )
@@ -27,7 +27,7 @@ export default function Greeting({ showFlags }) {
 
   interface FilteredGreeting {
     index: number
-    greeting: Greeting
+    greeting: GreetingInfo
   }
 
   function isFlagHidden(flag: string): boolean {
@@ -99,35 +99,40 @@ export default function Greeting({ showFlags }) {
         <Transition
           className="flex w-3/4 flex-row align-middle"
           show={isShowing}
-          enter="transition-opacity duration-100"
+          enter="transition-opacity duration-200"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="transition-opacity duration-100"
+          leave="transition-opacity duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
           <div className="w-4/5 align-middle">
-            <span title={`${greeting.message} (Language: ${greeting.language})`}>
+            <span title={`"Hello World!" | Language: ${greeting.language}`}>
               {greeting.message}
             </span>
           </div>
-        </Transition>
-        <div className="flex flex-row align-middle">
-          {FLAGS.map((flag) => {
-            return (
-              <div className="flex items-center align-middle" key={flag}>
+
+          <div className="flex flex-row align-middle">
+            {FLAGS.map((flag) => {
+              return (
                 <Image
-                  title={flag}
-                  src={`/static/icons/flags/4x3/${flag}.svg`}
+                  key={flag.name}
+                  title={flag.countryName}
+                  src={`/static/icons/flags/4x3/${flag.name}.svg`}
                   alt=""
-                  className={`${isFlagHidden(flag) ? 'hidden' : ''} mr-2 h-auto w-7 rounded-full`}
+                  className={`${
+                    isFlagHidden(flag.name)
+                      ? 'm-0 h-0 w-0'
+                      : 'mr-0.5 h-auto w-auto scale-75 rounded-full'
+                  }`}
                   width={0}
                   height={0}
                 />
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        </Transition>
+
         <div className="flex flex-row-reverse align-middle">
           <button onClick={handleStartStop} className="fill-current hover:fill-primary-500">
             {isStarted ? <PauseSvg /> : <PlaySvg />}

@@ -13,7 +13,7 @@ export default function Home({ posts }) {
       <div className="my-6 flex flex-col items-center gap-x-12 xl:mb-12 xl:flex-row">
         <div className="mr-8 pt-6">
           <h1 className="pb-6 text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            <Greeting showFlags={false} />
+            <Greeting showFlags={true} />
           </h1>
           <div className="flex flex-row items-center space-x-2 pt-8">
             <Image
@@ -21,22 +21,29 @@ export default function Home({ posts }) {
               alt="avatar"
               width={192}
               height={192}
-              className="h-44 w-44 rounded-full"
+              className="mr-4 h-44 w-44 rounded-full"
             />
-            <h2 className="prose text-lg text-gray-900 dark:text-gray-100">
-              {`Welcome to my small corner on the world wide web. I am a software engineer based in San Francisco, CA. In my free time, I like developing `}
-              <Link href="/projects">side projects</Link>
-              {' and '}
-              <Link href="/blog">writing</Link>
-              {' about various things.'}
-            </h2>
+            <div className="flex flex-col">
+              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+                {`Welcome to my small corner on the world wide web! My name is `}
+                <Link href="/about">Ritwik Lodhiya</Link>
+                {`.`}
+              </span>
+              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+                {`I am an experienced software engineer based in San Francisco. In my free time, I like developing `}
+                <Link href="/projects">side projects</Link>
+                {' and '}
+                <Link href="/blog">writing</Link>
+                {' about various things.'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
+            Latest Posts
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
             {siteMetadata.description}

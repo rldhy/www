@@ -15,7 +15,7 @@ const Header = () => {
             <div className="mr-3">
               <Logo />
             </div>
-            <div className="h-6 text-3xl font-extrabold sm:block">{siteMetadata.headerTitle}</div>
+            <div className="text-4xl font-extrabold sm:block">{siteMetadata.headerTitle}</div>
           </div>
         </Link>
       </div>
@@ -24,7 +24,7 @@ const Header = () => {
           <Link
             key={link.title}
             href={link.href}
-            className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+            className="hidden font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500 sm:block"
           >
             {link.title}
           </Link>
