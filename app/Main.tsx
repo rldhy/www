@@ -30,11 +30,16 @@ export default function Home({ posts }) {
                 {`.`}
               </span>
               <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
-                {`I am an experienced software engineer based in San Francisco. In my free time, I like developing `}
+                {`I am a software engineer based in San Francisco, CA. `}
+                {`I like to lead by example and take pride in fostering a culture of engineering excellence.`}
+              </span>
+              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+                {`In my free time, I like creating `}
                 <Link href="/projects">side projects</Link>
-                {' and '}
+                {` and `}
                 <Link href="/blog">writing</Link>
-                {' about various things.'}
+                {` about various things. `}
+                {`Other than tech, I also enjoy music, art, photography, PC + board games, and reading (mostly non-fiction topics such as history, militaries, economics, politics)`}
               </span>
             </div>
           </div>

@@ -112,7 +112,7 @@ export default function Greeting({ showFlags }) {
             </span>
           </div>
 
-          <div className="flex flex-row align-middle">
+          <div className="flex flex-row items-center">
             {FLAGS.map((flag) => {
               return (
                 <Image
@@ -121,9 +121,7 @@ export default function Greeting({ showFlags }) {
                   src={`/static/icons/flags/4x3/${flag.name}.svg`}
                   alt=""
                   className={`${
-                    isFlagHidden(flag.name)
-                      ? 'm-0 h-0 w-0'
-                      : 'mr-0.5 h-auto w-auto scale-75 rounded-full'
+                    isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-2/3 w-auto scale-75 rounded-full'
                   }`}
                   width={0}
                   height={0}
