@@ -101,7 +101,6 @@ export default function Greeting({ showFlags }) {
     <>
       <div className="flex justify-between">
         <Transition
-          className="flex w-3/4 flex-row align-middle"
           show={isShowing}
           enter="transition-opacity duration-200"
           enterFrom="opacity-0"
@@ -110,24 +109,26 @@ export default function Greeting({ showFlags }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="w-4/5 align-middle">
-            <span title={getGreetingTitle(greeting)}>{greeting.message}</span>
-          </div>
+          <div className="flex w-3/4 flex-row align-middle">
+            <div className="w-4/5 align-middle">
+              <span title={getGreetingTitle(greeting)}>{greeting.message}</span>
+            </div>
 
-          <div className="flex flex-row items-center">
-            {FLAGS.map((flag) => {
-              return (
-                <Image
-                  key={flag.name}
-                  title={flag.countryName}
-                  src={`/static/icons/flags/4x3/${flag.name}.svg`}
-                  alt=""
-                  className={`${isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-3/5 w-auto scale-75 rounded-full'}`}
-                  width={0}
-                  height={0}
-                />
-              )
-            })}
+            <div className="flex flex-row items-center">
+              {FLAGS.map((flag) => {
+                return (
+                  <Image
+                    key={flag.name}
+                    title={flag.countryName}
+                    src={`/static/icons/flags/4x3/${flag.name}.svg`}
+                    alt=""
+                    className={`${isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-3/5 w-auto scale-75 rounded-full'}`}
+                    width={0}
+                    height={0}
+                  />
+                )
+              })}
+            </div>
           </div>
         </Transition>
 
