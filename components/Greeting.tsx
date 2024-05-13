@@ -61,6 +61,10 @@ export default function Greeting({ showFlags }) {
     }
   }
 
+  function getGreetingTitle(greeting: GreetingInfo) {
+    return `"Hello World!" ${greeting.language === 'English' ? '' : `| "${greeting.message}"`} | Language: ${greeting.language}`
+  }
+
   function startAnimation() {
     if (!isStarted) {
       clearInterval(intervalRef.current ?? undefined)
@@ -107,9 +111,7 @@ export default function Greeting({ showFlags }) {
           leaveTo="opacity-0"
         >
           <div className="w-4/5 align-middle">
-            <span title={`"Hello World!" | Language: ${greeting.language}`}>
-              {greeting.message}
-            </span>
+            <span title={getGreetingTitle(greeting)}>{greeting.message}</span>
           </div>
 
           <div className="flex flex-row items-center">
@@ -120,9 +122,7 @@ export default function Greeting({ showFlags }) {
                   title={flag.countryName}
                   src={`/static/icons/flags/4x3/${flag.name}.svg`}
                   alt=""
-                  className={`${
-                    isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-2/3 w-auto scale-75 rounded-full'
-                  }`}
+                  className={`${isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-3/5 w-auto scale-75 rounded-full'}`}
                   width={0}
                   height={0}
                 />

@@ -93,7 +93,7 @@ export const GREETINGS: GreetingInfo[] = [
   {
     language: 'Russian',
     message: 'Привет мир!',
-    flags: ['ru'],
+    flags: ['ru', 'ua'],
   },
   {
     language: 'Ukrainian',
@@ -158,42 +158,51 @@ export const GREETINGS: GreetingInfo[] = [
 ]
 
 export const FLAGS: FlagInfo[] = [
-  { name: 'ae', countryName: 'United Arab Emirates' },
-  { name: 'at', countryName: 'Austria' },
-  { name: 'au', countryName: 'Australia' },
-  { name: 'br', countryName: 'Brazil' },
-  { name: 'ca', countryName: 'Canada' },
-  { name: 'ch', countryName: 'Switzerland' },
-  { name: 'cn', countryName: 'China' },
-  { name: 'co', countryName: 'Colombia' },
-  { name: 'cz', countryName: 'Czechia' },
-  { name: 'de', countryName: 'Germany' },
-  { name: 'dk', countryName: 'Denmark' },
-  { name: 'eg', countryName: 'Egypt' },
-  { name: 'es', countryName: 'Estonia' },
-  { name: 'fi', countryName: 'Finland' },
-  { name: 'fr', countryName: 'France' },
+  { name: 'us', countryName: 'United States of America' },
   { name: 'gb', countryName: 'United Kingdom' },
+
+  { name: 'fr', countryName: 'France' },
+  { name: 'ca', countryName: 'Canada' },
+
+  { name: 'au', countryName: 'Australia' },
+
+  { name: 'it', countryName: 'Italy' },
+
+  { name: 'de', countryName: 'Germany' },
+  { name: 'at', countryName: 'Austria' },
+  { name: 'ch', countryName: 'Switzerland' },
+
+  { name: 'es', countryName: 'Spain' },
+  { name: 'mx', countryName: 'Mexico' },
+  { name: 'co', countryName: 'Colombia' },
+
+  { name: 'pt', countryName: 'Portugal' },
+  { name: 'br', countryName: 'Brazil' },
+
+  { name: 'eg', countryName: 'Egypt' },
+  { name: 'ae', countryName: 'United Arab Emirates' },
+  { name: 'jo', countryName: 'Jordan' },
+
+  { name: 'cn', countryName: 'China' },
+  { name: 'tw', countryName: 'Taiwan' },
+
+  { name: 'cz', countryName: 'Czechia' },
+  { name: 'dk', countryName: 'Denmark' },
+  { name: 'fi', countryName: 'Finland' },
   { name: 'gr', countryName: 'Greece' },
   { name: 'hr', countryName: 'Croatia' },
   { name: 'hu', countryName: 'Hungary' },
   { name: 'il', countryName: 'Israel' },
   { name: 'in', countryName: 'India' },
-  { name: 'it', countryName: 'Italy' },
-  { name: 'jo', countryName: 'Jordan' },
   { name: 'jp', countryName: 'Japan' },
   { name: 'kr', countryName: 'South Korea' },
-  { name: 'mx', countryName: 'Mexico' },
   { name: 'nl', countryName: 'Netherlands' },
   { name: 'ph', countryName: 'Philippines' },
   { name: 'pl', countryName: 'Poland' },
-  { name: 'pt', countryName: 'Portugal' },
   { name: 'ru', countryName: 'Russia' },
   { name: 'se', countryName: 'Sweden' },
   { name: 'th', countryName: 'Thailand' },
   { name: 'tr', countryName: 'Turkey' },
-  { name: 'tw', countryName: 'Taiwan' },
   { name: 'ua', countryName: 'Ukraine' },
-  { name: 'us', countryName: 'United States of America' },
   { name: 'vn', countryName: 'Vietnam' },
 ]

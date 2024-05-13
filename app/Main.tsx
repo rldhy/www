@@ -31,6 +31,7 @@ export default function Home({ posts }) {
               </span>
               <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
                 {`I am a software engineer based in San Francisco, CA. `}
+                {`I specialize in backend development, systems architecture, distributed systems, and machine learning. `}
                 {`I like to lead by example and take pride in fostering a culture of engineering excellence.`}
               </span>
               <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
@@ -39,7 +40,7 @@ export default function Home({ posts }) {
                 {` and `}
                 <Link href="/blog">writing</Link>
                 {` about various things. `}
-                {`Other than tech, I also enjoy music, art, photography, PC + board games, and reading (mostly non-fiction topics such as history, militaries, economics, politics)`}
+                {`Other than tech, I enjoy music, art, photography, PC + board games, and reading (mostly non-fiction topics such as economics, politics, history).`}
               </span>
             </div>
           </div>
