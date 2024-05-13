@@ -29,9 +29,6 @@ export default function Footer() {
             <Link href="https://nextjs.org/">Next.js</Link>
             {` and `}
             <Link href="https://tailwindcss.com/">Tailwind CSS</Link>
-            {`  ( and this `}
-            <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">template</Link>
-            {` )`}
           </div>
         </div>
       </div>
