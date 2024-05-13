@@ -1,7 +1,7 @@
 {
-  "name": "personal-blog",
-  "description": "",
-  "repository": "https://github.com/rldhy/personal-blog",
+  "name": "personal-site",
+  "description": "Sharing my projects, hobbies, and interests.",
+  "repository": "https://github.com/rldhy/www",
   "license": "MIT",
   "author": "Ritwik Lodhiya <hello@rlodhiya.dev>",
   "version": "0.1.0",

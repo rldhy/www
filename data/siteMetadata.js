@@ -2,11 +2,11 @@ const siteMetadata = {
   title: 'RLODHIYA.DEV',
   author: 'Ritwik Lodhiya',
   headerTitle: 'Ritwik Lodhiya',
-  description: 'Sharing projects, hobbies, and interests.',
+  description: 'Sharing my projects, hobbies, and interests.',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://rlodhiya.dev',
-  siteRepo: 'https://github.com/rldhy/personal-blog',
+  siteRepo: 'https://github.com/rldhy/www',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/social-banner.png',
   // mastodon: 'https://mastodon.social/@mastodonuser',

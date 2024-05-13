@@ -9170,9 +9170,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"personal-blog@workspace:.":
+"personal-site@workspace:.":
   version: 0.0.0-use.local
-  resolution: "personal-blog@workspace:."
+  resolution: "personal-site@workspace:."
   dependencies:
     "@hcaptcha/react-hcaptcha": 1.10.1
     "@hcaptcha/types": 1.0.3
