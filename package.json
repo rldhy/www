@@ -1,5 +1,5 @@
 {
-  "name": "personal-site",
+  "name": "rlodhiya-personal-site",
   "description": "Sharing my projects, hobbies, and interests.",
   "repository": "https://github.com/rldhy/www",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "@headlessui/react": "2.0.3",
     "@next/bundle-analyzer": "14.2.3",
     "@react-pdf-viewer/core": "3.12.0",
+    "@react-pdf-viewer/default-layout": "3.12.0",
     "@sendgrid/mail": "8.1.3",
     "@tailwindcss/forms": "0.5.7",
     "@tailwindcss/typography": "0.5.13",

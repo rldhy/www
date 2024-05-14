@@ -7,7 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app unpkg.com umami.is *.umami.is hcaptcha.com *.hcaptcha.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app unpkg.com cloudflare.com *.cloudflare.com umami.is *.umami.is hcaptcha.com *.hcaptcha.com;
   style-src 'self' 'unsafe-inline' hcaptcha.com *.hcaptcha.com;
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
@@ -66,12 +66,7 @@ module.exports = () => {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
     images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'picsum.photos',
-        },
-      ],
+      remotePatterns: [],
     },
     async headers() {
       return [
