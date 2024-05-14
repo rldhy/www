@@ -66,7 +66,12 @@ module.exports = () => {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
     images: {
-      remotePatterns: [],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'cdn.buymeacoffee.com',
+        },
+      ],
     },
     async headers() {
       return [
