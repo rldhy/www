@@ -64,7 +64,7 @@ export default function AuthorLayout({ children, content }: Props) {
               <SocialIcon kind="x" href={twitter} />
             </div>
             <div className="mt-5 flex items-center justify-center">
-              <Link href="https://www.buymeacoffee.com/rlodhiya">
+              <Link href="https://www.buymeacoffee.com/rlodhiya" className="hover:scale-110">
                 <Image
                   src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
                   alt="Buy Me A Coffee"
