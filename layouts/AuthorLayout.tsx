@@ -1,7 +1,9 @@
 import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon from '@/components/social-icons'
+import PinOnMapSvg from '@/components/common-icons/pin-on-map.svg'
 import Image from '@/components/Image'
+import Link from '@/components/Link'
 
 interface Props {
   children: ReactNode
@@ -9,7 +11,18 @@ interface Props {
 }
 
 export default function AuthorLayout({ children, content }: Props) {
-  const { name, avatar, location, occupation, company, email, twitter, linkedin, github } = content
+  const {
+    name,
+    avatar,
+    location,
+    occupation,
+    company,
+    companyUrl,
+    email,
+    twitter,
+    linkedin,
+    github,
+  } = content
 
   return (
     <>
@@ -24,16 +37,26 @@ export default function AuthorLayout({ children, content }: Props) {
             {avatar && (
               <Image
                 src={avatar}
-                alt="avatar"
+                alt={name}
                 width={192}
                 height={192}
-                className="h-48 w-48 rounded-full"
+                className="h-56 w-56 rounded-3xl"
               />
             )}
             <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
-            <div className="text-gray-500 dark:text-gray-400">{location}</div>
+            <div className="flex text-gray-500 dark:text-gray-400">
+              {/* eslint-disable-next-line prettier/prettier */}
+              <Link href={`https://www.google.com/maps/place/${location}/`} className="mr-1.5 fill-current hover:fill-primary-500">
+                <PinOnMapSvg />
+              </Link>
+              {location}
+            </div>
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
-            <div className="text-gray-500 dark:text-gray-400">{company}</div>
+            <div className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-500">
+              <Link href={companyUrl ?? ''} title={company}>
+                {company}
+              </Link>
+            </div>
             <div className="flex space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />

@@ -83,7 +83,7 @@ export const Blog = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
-    lastmod: { type: 'date' },
+    lastModified: { type: 'date' },
     draft: { type: 'boolean' },
     summary: { type: 'string' },
     images: { type: 'json' },
@@ -101,7 +101,7 @@ export const Blog = defineDocumentType(() => ({
         '@type': 'BlogPosting',
         headline: doc.title,
         datePublished: doc.date,
-        dateModified: doc.lastmod || doc.date,
+        dateModified: doc.lastModified || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
         url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
@@ -120,6 +120,7 @@ export const Authors = defineDocumentType(() => ({
     location: { type: 'string' },
     occupation: { type: 'string' },
     company: { type: 'string' },
+    companyUrl: { type: 'string' },
     email: { type: 'string' },
     twitter: { type: 'string' },
     linkedin: { type: 'string' },
@@ -135,10 +136,8 @@ export const Resume = defineDocumentType(() => ({
   contentType: 'mdx',
   fields: {
     name: { type: 'string', required: true },
-    avatar: { type: 'string' },
     location: { type: 'string' },
     email: { type: 'string' },
-    twitter: { type: 'string' },
     linkedin: { type: 'string' },
     github: { type: 'string' },
     layout: { type: 'string' },
@@ -152,7 +151,6 @@ export default makeSource({
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
-      // @ts-ignore
       remarkExtractFrontmatter,
       remarkGfm,
       remarkCodeTitles,

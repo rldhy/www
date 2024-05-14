@@ -21,25 +21,27 @@ export default function Home({ posts }) {
               alt="avatar"
               width={192}
               height={192}
-              className="mr-4 h-44 w-44 rounded-full"
+              className="mr-4 h-48 w-48 rounded-full"
             />
-            <div className="flex flex-col">
-              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+            <div className="prose flex flex-col text-lg text-gray-500 dark:text-gray-400">
+              <span className="mb-2">
                 {`Welcome to my small corner on the world wide web! My name is `}
                 <Link href="/about">Ritwik Lodhiya</Link>
                 {`.`}
               </span>
-              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+              <span className="mb-2">
                 {`I am a software engineer based in San Francisco, CA. `}
-                {`I specialize in backend development, systems architecture, distributed systems, and machine learning. `}
+                {`I specialize in backend development, microservices and systems architecture, distributed systems, and machine learning. `}
                 {`I like to lead by example and take pride in fostering a culture of engineering excellence.`}
               </span>
-              <span className="prose mb-1 text-lg text-gray-900 dark:text-gray-100">
+              <span className="mb-2">
                 {`In my free time, I like creating `}
                 <Link href="/projects">side projects</Link>
                 {` and `}
                 <Link href="/blog">writing</Link>
                 {` about various things. `}
+              </span>
+              <span className="my-1">
                 {`Other than tech, I enjoy music, art, photography, PC + board games, and reading (mostly non-fiction topics such as economics, politics, history).`}
               </span>
             </div>
