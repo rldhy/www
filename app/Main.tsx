@@ -18,10 +18,10 @@ export default function Home({ posts }) {
           <div className="flex flex-row items-center space-x-2 pt-8">
             <Image
               src="/static/images/avatar.png"
-              alt="avatar"
+              alt="Ritwik Lodhiya"
               width={192}
               height={192}
-              className="mr-4 h-48 w-48 rounded-full"
+              className="mr-4 h-52 w-52 rounded-full"
             />
             <div className="prose flex flex-col text-lg text-gray-500 dark:text-gray-400">
               <span className="mb-2">
@@ -31,7 +31,7 @@ export default function Home({ posts }) {
               </span>
               <span className="mb-2">
                 {`I am a software engineer based in San Francisco, CA. `}
-                {`I specialize in backend development, microservices and systems architecture, distributed systems, and machine learning. `}
+                {`I specialize in backend development, microservices architecture, distributed systems, and machine learning. `}
                 {`I like to lead by example and take pride in fostering a culture of engineering excellence.`}
               </span>
               <span className="mb-2">

@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
         <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
           <div>
-            {`Built using `}
+            {`Built with ❤️ using `}
             {/* eslint-disable-next-line prettier/prettier */}
             <Link href="https://nextjs.org/" className="hover:text-primary-500 dark:hover:text-primary-500">Next.js</Link>
             {` and `}
