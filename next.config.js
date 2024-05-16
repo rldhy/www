@@ -8,7 +8,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app unpkg.com cloudflare.com *.cloudflare.com umami.is *.umami.is hcaptcha.com *.hcaptcha.com;
-  worker-src 'self' 'unsafe-eval' cloudflare.com *.cloudflare.com;
+  worker-src 'self' 'unsafe-eval' 'unsafe-inline' cloudflare.com *.cloudflare.com;
   style-src 'self' 'unsafe-inline' hcaptcha.com *.hcaptcha.com googleapis.com *.googleapis.com;
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
@@ -67,12 +67,7 @@ module.exports = () => {
       dirs: ['app', 'components', 'layouts', 'scripts'],
     },
     images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'cdn.buymeacoffee.com',
-        },
-      ],
+      remotePatterns: [],
     },
     async headers() {
       return [

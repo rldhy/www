@@ -19,9 +19,9 @@ export default function AuthorLayout({ children, content }: Props) {
     company,
     companyUrl,
     email,
-    twitter,
     linkedin,
     github,
+    buyMeCoffee,
   } = content
 
   return (
@@ -61,18 +61,19 @@ export default function AuthorLayout({ children, content }: Props) {
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
               <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="x" href={twitter} />
             </div>
-            <div className="mt-5 flex items-center justify-center">
-              <Link href="https://www.buymeacoffee.com/rlodhiya" className="hover:scale-110">
-                <Image
-                  src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-                  alt="Buy Me A Coffee"
-                  width={217}
-                  height={60}
-                />
-              </Link>
-            </div>
+            {buyMeCoffee && (
+              <div className="mt-5 flex items-center justify-center">
+                <Link href={buyMeCoffee} className="hover:scale-110">
+                  <Image
+                    src="/static/images/buy-me-coffee.png"
+                    alt="Buy Me A Coffee"
+                    width={163}
+                    height={45}
+                  />
+                </Link>
+              </div>
+            )}
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
             {children}
