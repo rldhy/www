@@ -109,7 +109,7 @@ export default function Greeting({ showFlags }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="flex w-3/4 flex-row align-middle">
+          <div className="flex w-5/6 flex-row align-middle">
             <div className="w-4/5 align-middle">
               <span title={getGreetingTitle(greeting)}>{greeting.message}</span>
             </div>
