@@ -95,7 +95,7 @@ export default function Greeting({ showFlags }) {
     setTimeout(() => {
       startAnimation()
     }, 3000)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

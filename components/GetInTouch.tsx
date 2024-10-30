@@ -176,11 +176,11 @@ const GetInTouch = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="mt-8 flex flex-col rounded-lg border-2 border-gray-200 border-opacity-60 p-10 shadow-xl dark:border-gray-700 "
+        className="mt-8 flex flex-col rounded-lg border-2 border-gray-200 border-opacity-60 p-10 shadow-xl dark:border-gray-700"
       >
         <h1 className="mb-2 text-center text-4xl font-bold">Get in Touch!</h1>
 
-        <label htmlFor="fullName" className="mt-4 font-bold ">
+        <label htmlFor="fullName" className="mt-4 font-bold">
           Full Name: <span className="text-red-500">*</span>
         </label>
         <input
@@ -197,7 +197,7 @@ const GetInTouch = () => {
 
         {errors?.fullName && <p className="text-red-500">Full name cannot be empty.</p>}
 
-        <label htmlFor="email" className="mt-4 font-bold ">
+        <label htmlFor="email" className="mt-4 font-bold">
           Email: <span className="text-red-500">*</span>
         </label>
         <input
@@ -214,7 +214,7 @@ const GetInTouch = () => {
 
         {errors?.email && <p className="text-red-500">Email cannot be empty.</p>}
 
-        <label htmlFor="subject" className="mt-8 font-bold ">
+        <label htmlFor="subject" className="mt-8 font-bold">
           Subject:
         </label>
         <input
@@ -229,7 +229,7 @@ const GetInTouch = () => {
           className="mb-3 block w-full rounded border border-gray-200 bg-gray-200 px-4 py-3 dark:text-black"
         />
 
-        <label htmlFor="message" className="mt-4 font-bold ">
+        <label htmlFor="message" className="mt-4 font-bold">
           Message: <span className="text-red-500">*</span>
         </label>
         <textarea
