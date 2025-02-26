@@ -1,10 +1,6 @@
 import { genPageMetadata } from 'app/seo'
-import PdfViewer from '@/components/PdfViewer'
-import Link from '@/components/Link'
 
 export const metadata = genPageMetadata({ title: 'Résumé' })
-
-const RESUME_BASE_PATH = '/static/resume/resume'
 
 export default function Page() {
   return (
@@ -17,23 +13,9 @@ export default function Page() {
         </div>
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {`In order to view my resume, please enter my first name, last name, and the word "resume" without any spaces in `}
-            <span className="text-primary-500 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400">
-              <Link href="https://www.techopedia.com/definition/pascal-case">PascalCase</Link>
-            </span>
-            {` when prompted for the password below. Feel free to `}
-            <span className="text-primary-500 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-400">
-              <Link href="/contact">reach out</Link>
-            </span>
-            {` if you encounter any issues or would like to learn more. `}
+            {`This page is under construction!`}
           </p>
-          <div className="h-svh w-full">
-            <PdfViewer
-              pdfPath={undefined}
-              pdfPathLight={`${RESUME_BASE_PATH}-light.pdf`}
-              pdfPathDark={`${RESUME_BASE_PATH}-dark.pdf`}
-            />
-          </div>
+          <div className="h-svh w-full"></div>
         </div>
       </div>
     </>
