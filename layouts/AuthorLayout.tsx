@@ -27,12 +27,12 @@ export default function AuthorLayout({ children, content }: Props) {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             About Me
           </h1>
         </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
+        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:space-y-0 xl:gap-x-8">
           <div className="flex flex-col items-center space-x-2 pt-8">
             {avatar && (
               <Image
@@ -43,7 +43,7 @@ export default function AuthorLayout({ children, content }: Props) {
                 className="h-56 w-56 rounded-3xl"
               />
             )}
-            <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
+            <h3 className="pt-4 pb-2 text-2xl leading-8 font-bold tracking-tight">{name}</h3>
             <div className="flex text-gray-500 dark:text-gray-400">
               {/* eslint-disable-next-line prettier/prettier */}
               <Link href={`https://www.google.com/maps/place/${location}/`} className="mr-1.5 fill-current hover:fill-primary-500">
@@ -52,7 +52,7 @@ export default function AuthorLayout({ children, content }: Props) {
               {location}
             </div>
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
-            <div className="text-gray-500 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-500">
+            <div className="hover:text-primary-500 dark:hover:text-primary-500 text-gray-500 dark:text-gray-400">
               <Link href={companyUrl ?? ''} title={company}>
                 {company}
               </Link>
@@ -75,7 +75,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </div>
             )}
           </div>
-          <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
+          <div className="prose dark:prose-invert max-w-none pt-8 pb-8 xl:col-span-2">
             {children}
           </div>
         </div>

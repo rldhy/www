@@ -133,7 +133,7 @@ export default function Greeting({ showFlags }) {
         </Transition>
 
         <div className="flex flex-row-reverse align-middle">
-          <button onClick={handleStartStop} className="fill-current hover:fill-primary-500">
+          <button onClick={handleStartStop} className="hover:fill-primary-500 fill-current">
             {isStarted ? <PauseSvg /> : <PlaySvg />}
           </button>
         </div>

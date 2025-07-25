@@ -176,7 +176,7 @@ const GetInTouch = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="mt-8 flex flex-col rounded-lg border-2 border-gray-200 border-opacity-60 p-10 shadow-xl dark:border-gray-700"
+        className="border-opacity-60 mt-8 flex flex-col rounded-lg border-2 border-gray-200 p-10 shadow-xl dark:border-gray-700"
       >
         <h1 className="mb-2 text-center text-4xl font-bold">Get in Touch!</h1>
 
@@ -263,7 +263,7 @@ const GetInTouch = () => {
             <button
               type="submit"
               disabled={isButtonDisabled()}
-              className="m-1.5 flex flex-row items-center rounded-md bg-primary-500 px-10 py-2 align-middle text-lg font-bold text-gray-700 hover:bg-primary-600 dark:hover:bg-primary-400"
+              className="bg-primary-500 hover:bg-primary-600 dark:hover:bg-primary-400 m-1.5 flex flex-row items-center rounded-md px-10 py-2 align-middle text-lg font-bold text-gray-700"
             >
               {buttonText}
               <div className="ml-1.5">
@@ -298,10 +298,10 @@ const GetInTouch = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
-                  <Dialog.Title className="text-xl font-bold leading-6 text-black dark:text-white dark:ring-offset-slate-500">
+                  <Dialog.Title className="text-xl leading-6 font-bold text-black dark:text-white dark:ring-offset-slate-500">
                     {modalTitle}
                   </Dialog.Title>
-                  <div className="mb-2 mt-4 flex items-center">
+                  <div className="mt-4 mb-2 flex items-center">
                     <div className="mr-2">{modalLogo}</div>
                     <p className="text-md text-black dark:text-white">{modalMessage}</p>
                   </div>
