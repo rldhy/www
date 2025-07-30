@@ -15,13 +15,13 @@ export default function Home({ posts }) {
           <h1 className="pb-6 text-2xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             <Greeting showFlags={true} />
           </h1>
-          <div className="flex flex-row items-center space-x-2 pt-8">
+          <div className="flex flex-col items-center space-x-2 pt-8 xl:flex-row">
             <Image
               src="/static/images/avatar.png"
               alt="Ritwik Lodhiya"
               width={192}
               height={192}
-              className="mr-4 h-52 w-52 rounded-full"
+              className="mr-4 flex h-52 w-52 rounded-full pb-4"
             />
             <div className="prose flex flex-col text-lg text-gray-500 dark:text-gray-400">
               <span className="mb-2">
