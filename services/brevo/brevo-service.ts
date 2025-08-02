@@ -13,7 +13,6 @@ interface GetInTouchArgs {
 
 class BrevoService {
   private readonly apiKey: string
-  private readonly apiInstance: TransactionalEmailsApi
 
   constructor() {
     if (!process.env.BREVO_API_KEY)

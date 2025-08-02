@@ -15,9 +15,9 @@
     "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
   },
   "dependencies": {
-    "@getbrevo/brevo": "2.5.0",
+    "@getbrevo/brevo": "3.0.1",
     "@hcaptcha/react-hcaptcha": "1.12.0",
-    "@headlessui/react": "2.2.6",
+    "@headlessui/react": "2.2.7",
     "@next/bundle-analyzer": "15.4.5",
     "@tailwindcss/forms": "0.5.10",
     "@tailwindcss/postcss": "4.1.11",
@@ -63,7 +63,7 @@
     "lint-staged": "16.1.2",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "0.6.14",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "yarn-upgrade-all": "0.7.5"
   },
   "lint-staged": {
