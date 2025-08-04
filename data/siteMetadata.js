@@ -18,6 +18,8 @@ const siteMetadata = {
   linkedin: 'https://www.linkedin.com/in/rlodhiya',
   // threads: 'https://www.threads.net',
   // instagram: 'https://www.instagram.com',
+  // medium: 'https://medium.com',
+  // bluesky: 'https://bsky.app/',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
