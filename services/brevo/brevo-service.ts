@@ -46,7 +46,14 @@ class BrevoService {
       message.sender = { name: 'RL-System', email: 'system@rlodhiya.dev' }
       message.to = [{ name: 'Ritwik Lodhiya', email: 'hello@rlodhiya.dev' }]
 
-      await apiInstance.sendTransacEmail(message)
+      const { response } = await apiInstance.sendTransacEmail(message)
+      const { statusCode, statusMessage } = response
+      if (statusCode && statusCode >= 200 && statusCode < 300) {
+        console.log(`Brevo API call succeeded: status: ${statusCode}, message: ${statusMessage}`)
+      } else {
+        console.log(`Brevo API call failed: status: ${statusCode}, message: ${statusMessage}`)
+        return false
+      }
     } catch (error) {
       console.log(`Error sending email: ${error}`)
       return false
