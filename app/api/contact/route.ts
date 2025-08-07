@@ -21,10 +21,11 @@ async function handler(req: NextRequest) {
     })
 
     if (!sent) {
+      console.log('Email was not sent')
       return NextResponse.json({ message: 'Email was not sent' }, { status: 500 })
     }
   } catch (error) {
-    console.error('Error submitting contact:', error)
+    console.log(`Error submitting contact: ${error}`)
     return NextResponse.json({ error: 'Method not allowed' }, { status: 500 })
   }
 

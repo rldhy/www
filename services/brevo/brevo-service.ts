@@ -48,7 +48,7 @@ class BrevoService {
 
       await apiInstance.sendTransacEmail(message)
     } catch (error) {
-      console.error('Error sending email:', error)
+      console.log(`Error sending email: ${error}`)
       return false
     }
 
