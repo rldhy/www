@@ -21,7 +21,7 @@ export default function Home({ posts }) {
               alt="Ritwik Lodhiya"
               width={192}
               height={192}
-              className="mr-4 flex h-52 w-52 rounded-full pb-4"
+              className="mr-4 flex rounded-4xl pb-4"
             />
             <div className="prose flex flex-col text-lg text-gray-500 dark:text-gray-400">
               <span className="mb-2">
