@@ -12667,6 +12667,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resend@npm:6.0.0":
+  version: 6.0.0
+  resolution: "resend@npm:6.0.0"
+  peerDependencies:
+    "@react-email/render": ^1.1.0
+  peerDependenciesMeta:
+    "@react-email/render":
+      optional: true
+  checksum: bc8e026c5063b4ffbfa9f4a7c6e92286b8788f43857bfdbbdfac3aec7e57f7e9d89f59d38aea50daafc1cabe3f65e0465d6ead4e69eef64de7c4d7406d464d0a
+  languageName: node
+  linkType: hard
+
 "resolve-from@npm:^4.0.0":
   version: 4.0.0
   resolution: "resolve-from@npm:4.0.0"
@@ -12832,6 +12844,7 @@ __metadata:
     remark: 15.0.1
     remark-gfm: 4.0.1
     remark-math: 6.0.0
+    resend: 6.0.0
     tailwindcss: 4.1.11
     typescript: 5.9.2
     unist-util-visit: 5.0.0
