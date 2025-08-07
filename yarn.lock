@@ -2676,23 +2676,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hcaptcha/loader@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@hcaptcha/loader@npm:2.0.0"
-  checksum: 361aba7dff6a7c76b8505d2bc3a5feaa106b800b84d5c9876e9fb7e9dbdc2c5ef93461d405d23879290452d11dac702817202929ac9df64e314ea104246847e6
+"@hcaptcha/loader@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@hcaptcha/loader@npm:2.0.1"
+  checksum: 2d2e14a2eb81da340ba3ebd4237f2c47279d84f6c8572dc017c2c63522afb5696d83700ad281ea954ebb53f8d464a04570e1ddbc1b5285aa12cd305e7ca8038d
   languageName: node
   linkType: hard
 
-"@hcaptcha/react-hcaptcha@npm:1.12.0":
-  version: 1.12.0
-  resolution: "@hcaptcha/react-hcaptcha@npm:1.12.0"
+"@hcaptcha/react-hcaptcha@npm:1.12.1":
+  version: 1.12.1
+  resolution: "@hcaptcha/react-hcaptcha@npm:1.12.1"
   dependencies:
     "@babel/runtime": ^7.17.9
-    "@hcaptcha/loader": ^2.0.0
+    "@hcaptcha/loader": ^2.0.1
   peerDependencies:
     react: ">= 16.3.0"
     react-dom: ">= 16.3.0"
-  checksum: 73658815fca8a22c81ae1b1527e18da06d54a84e756aa9e2f080cb5fd15f6f062a4bcb57713afe68e651b63266258d49d7b72291375c71de66df8de94a0111ae
+  checksum: 05562176be8a67d2c8b225968592e5a5f79f659d7f1543408d70451465f881825978c1614067c15c60c7f874475019e4af680a490806cd9ff1886e47c2d27559
   languageName: node
   linkType: hard
 
@@ -12789,7 +12789,7 @@ __metadata:
   resolution: "rlodhiya-personal-site@workspace:."
   dependencies:
     "@getbrevo/brevo": 3.0.1
-    "@hcaptcha/react-hcaptcha": 1.12.0
+    "@hcaptcha/react-hcaptcha": 1.12.1
     "@hcaptcha/types": 1.0.4
     "@headlessui/react": 2.2.7
     "@next/bundle-analyzer": 15.4.6
