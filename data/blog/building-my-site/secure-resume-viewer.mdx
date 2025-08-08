@@ -1,0 +1,63 @@
+---
+title: 'Building a Secure PDF Résumé Viewer with Next.js & hCaptchaBuilding a Secure PDF Résumé Viewer with Next.js & hCaptcha'
+date: '2025-08-07'
+lastModified: '2025-08-07'
+tags: [next-js, pdf, resume, hcaptcha, react-pdf]
+draft: false
+summary: 'How I created a protected résumé viewer with Next.js, in-memory caching, and bot protection using hCaptcha'
+images: []
+---
+
+I wanted to show my résumé online without publicly exposing the file or letting bots scrape it. The solution? A secure, blob-based PDF viewer behind an hCaptcha gate.
+
+Here's how I built it.
+
+## 🔐 Secure API Endpoint
+
+The API route fetches the remote PDF, validates hCaptcha, caches the file in memory, and returns the content as a blob.
+
+```ts
+const token = req.nextUrl.searchParams.get('hcaptchaToken')
+const verified = await hcaptchaService.verifyToken(token)
+
+if (!verified) return new Response('Unauthorized', { status: 401 })
+
+const pdfBuffer = await pdfService.getCachedResume()
+return new NextResponse(new Blob([pdfBuffer]), {
+  headers: { 'Content-Type': 'application/pdf' },
+})
+```
+
+Caching uses `node-cache` with a 1-hour TTL, since Vercel functions may cold-start.
+
+## 🧱 React PDF Viewer Setup
+
+Using [`react-pdf`](https://github.com/wojtekmaj/react-pdf), I created a clean, responsive viewer that accepts a `Blob`:
+
+```tsx
+<Page pageNumber={pageNumber} file={pdfBlob} width={pageWidth} />
+```
+
+`ResizeObserver` is used to make the page scale automatically to 90% of the container width while preserving height.
+
+## 🧪 ProtectedPdfViewer Component
+
+This component runs hCaptcha in the client, verifies the token, fetches the PDF from the API, and passes the blob to the viewer.
+
+```tsx
+{pdfBlob && <PdfViewer pdf={pdfBlob} />}
+```
+
+It only shows the viewer once the captcha passes.
+
+## ✅ Final Features
+
+- 📄 **Private URL** for the PDF file
+- 🔒 **hCaptcha-protected** download
+- ⚡ **In-memory caching** on first request
+- 📱 **Responsive, scrollable PDF viewer**
+- 💬 **Custom navigation + UI**
+
+## 🚀 See It Live
+
+You can view the final page [here](/resume) — assuming you’re human enough to pass the captcha 🧠
