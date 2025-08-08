@@ -91,6 +91,7 @@ const PdfViewerClient = ({ pdf }: { pdf: Blob | string }) => {
           <Document
             file={pdf}
             options={options}
+            externalLinkTarget="_blank"
             onLoadSuccess={onDocumentLoadSuccess}
             loading={<div className="py-20 text-center">Loading PDF...</div>}
             error={
@@ -99,7 +100,12 @@ const PdfViewerClient = ({ pdf }: { pdf: Blob | string }) => {
               </div>
             }
           >
-            <Page pageNumber={pageNumber} width={pageWidth} renderTextLayer renderAnnotationLayer />
+            <Page
+              pageNumber={pageNumber}
+              width={pageWidth}
+              renderTextLayer={true}
+              renderAnnotationLayer={true}
+            />
           </Document>
         </div>
       </div>
