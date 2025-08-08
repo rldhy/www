@@ -3,13 +3,7 @@ import {
   TransactionalEmailsApi,
   TransactionalEmailsApiApiKeys,
 } from '@getbrevo/brevo'
-
-interface GetInTouchArgs {
-  fullName: string
-  email: string
-  subject: string
-  message: string
-}
+import { buildGetInTouchHtml, GetInTouchArgs } from '../message-builder'
 
 class BrevoService {
   private readonly apiKey: string
@@ -22,20 +16,7 @@ class BrevoService {
 
   async sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean> {
     try {
-      const htmlMsg = `
-        <div>
-          <h1>Get In Touch Email Submission</h1>
-          <h2>Timestamp</h2>
-          <p>${new Date().toISOString()}</p>
-          <h2>Name</h2>
-          <p>${args.fullName}</p>
-          <h2>Email</h2>
-          <p>${args.email}</p>
-          <h2>Subject</h2>
-          <p>${args.subject}</p>
-          <h2>Message</h2>
-          <p>${args.message}</p>
-        </div>`
+      const htmlMsg = buildGetInTouchHtml(args)
 
       const apiInstance = new TransactionalEmailsApi()
       apiInstance.setApiKey(TransactionalEmailsApiApiKeys.apiKey, this.apiKey)

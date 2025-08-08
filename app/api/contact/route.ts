@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import HCaptchaService from '../../../services/hcaptcha/hcaptcha-service'
-import BrevoService from '../../../services/brevo/brevo-service'
+import EmailService from '../../../services/email/email-service'
 
 async function handler(req: NextRequest) {
   try {
@@ -12,8 +12,8 @@ async function handler(req: NextRequest) {
       return NextResponse.json({ error: 'hcaptcha verification failed' }, { status: 401 })
     }
 
-    const brevoService = new BrevoService()
-    const sent = brevoService.sendGetInTouchMessage({
+    const emailService = new EmailService()
+    const sent = emailService.sendGetInTouchMessage({
       fullName: body.fullName,
       email: body.email,
       subject: body.subject,
