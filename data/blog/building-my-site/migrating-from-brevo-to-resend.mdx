@@ -1,0 +1,76 @@
+---
+title: 'Migrating from Brevo to Resend in a Next.js App'
+date: '2025-08-07'
+lastModified: '2025-08-07'
+tags: [next-js, email, resend, brevo]
+draft: false
+summary: 'Why and how I replaced Brevo with Resend for sending email in my portfolio project'
+images: []
+---
+
+I originally used [Brevo](https://www.brevo.com) (formerly Sendinblue) to handle contact form submissions on my site, and it worked fine. But [Resend](https://resend.com) offers a much simpler developer experience — built for frameworks like Next.js and Vercel.
+
+Here’s how I made the switch.
+
+## 📦 Installing Resend
+
+```bash
+npm install resend
+```
+
+## 🛠️ Brevo: What I Had Before
+
+```ts
+import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo'
+
+const api = new TransactionalEmailsApi()
+api.setApiKey('apiKey', process.env.BREVO_API_KEY!)
+
+await api.sendTransacEmail(new SendSmtpEmail({
+  to: [{ email: 'hello@rlodhiya.dev' }],
+  sender: { email: 'system@rlodhiya.dev', name: 'RL-System' },
+  subject: 'Contact Form',
+  htmlContent: '<p>Message</p>',
+}))
+```
+
+## 🔁 Replaced with Resend
+
+```ts
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+
+await resend.emails.send({
+  from: 'RL-System <system@rlodhiya.dev>',
+  to: ['hello@rlodhiya.dev'],
+  subject: 'Contact Form',
+  html: '<p>Message</p>',
+})
+```
+
+## 📬 Reusable HTML Builder
+
+```ts
+// message-builder.ts
+export function buildGetInTouchHtml({ fullName, message }: GetInTouchArgs) {
+  return `<div><p><strong>${fullName}</strong>: ${message}</p></div>`
+}
+```
+
+Both Brevo and Resend now use this for consistency.
+
+## 🧠 Generic EmailService Wrapper
+
+I created a service that reads from `EMAIL_PROVIDER` in `.env` and routes the request to the correct implementation.
+
+```ts
+const service = new EmailService()
+await service.sendGetInTouchMessage(args)
+```
+
+## ✅ Why I Switched
+
+Resend feels tailor-made for modern React and serverless projects. Type-safe, clean, and no extra ceremony. It also plays nicely with my Vercel deployment.
+
+No regrets!
