@@ -1,5 +1,7 @@
 import { genPageMetadata } from 'app/seo'
 
+import ProtectedResumeViewer from '@/components/ProtectedResumeViewer'
+
 export const metadata = genPageMetadata({ title: 'Résumé' })
 
 export default function Page() {
@@ -12,10 +14,9 @@ export default function Page() {
           </h1>
         </div>
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {`This page is under construction!`}
-          </p>
-          <div className="h-svh w-full"></div>
+          <div className="h-svh w-full">
+            <ProtectedResumeViewer />
+          </div>
         </div>
       </div>
     </>
