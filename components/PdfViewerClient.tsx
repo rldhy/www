@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
-import ChevronLeftIcon from './common-icons/chevron-left-circle.svg'
-import ChevronRightIcon from './common-icons/chevron-right-circle.svg'
+import ChevronLeftIcon from './common-icons/chevron-left-rounded.svg'
+import ChevronRightIcon from './common-icons/chevron-right-rounded.svg'
 
 import 'react-pdf/dist/Page/TextLayer.css'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -16,21 +16,7 @@ const options = {
   standardFontDataUrl: `${PDFJS_SRC}/standard_fonts/`,
 }
 
-function Nav({ pageNumber, numPages }: { pageNumber: number; numPages: number }) {
-  return (
-    <nav className="top-0 bg-black">
-      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        <p className="text-2xl font-bold text-gray-100">PDF Viewer</p>
-        <div className="rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-gray-100">
-          <span>{pageNumber}</span>
-          <span className="text-gray-400"> / {numPages}</span>
-        </div>
-      </div>
-    </nav>
-  )
-}
-
-const PdfViewerClient = ({ pdf }: { pdf: Blob | string }) => {
+const PdfViewerClient = ({ title, pdf }: { title: string; pdf: Blob | string }) => {
   const [numPages, setNumPages] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
   const [loading, setLoading] = useState(true)
@@ -69,23 +55,31 @@ const PdfViewerClient = ({ pdf }: { pdf: Blob | string }) => {
 
   return (
     <div className="flex h-screen flex-col" hidden={loading}>
-      <Nav pageNumber={pageNumber} numPages={numPages} />
-      <div ref={containerRef} className="mx-auto w-full max-w-[1000px] px-4 py-6">
+      <nav className="top-0 bg-gray-600">
+        <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+          <p className="text-2xl font-bold text-gray-100">{title}</p>
+          <div className="rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-gray-100">
+            <span>{pageNumber}</span>
+            <span className="text-gray-400"> / {numPages}</span>
+          </div>
+        </div>
+      </nav>
+      <div ref={containerRef} className="mx-auto w-full max-w-[1000px] min-w-[200px] px-4 py-6">
         <div className="relative flex w-full justify-center">
           <div className="absolute top-1/2 left-0 z-10 -translate-y-1/2">
             <button
               onClick={goToPreviousPage}
-              className="group hover:text-primary-500 px-3 py-20 text-black"
+              className="group flex h-full w-10 flex-col items-center justify-center bg-transparent text-gray-600 hover:text-gray-400"
             >
-              <ChevronLeftIcon className="h-10 w-10" />
+              <ChevronLeftIcon className="h-full w-10" />
             </button>
           </div>
           <div className="absolute top-1/2 right-0 z-10 -translate-y-1/2">
             <button
               onClick={goToNextPage}
-              className="group hover:text-primary-500 px-3 py-20 text-black"
+              className="group flex h-full w-10 flex-col items-center justify-center bg-transparent text-gray-600 hover:text-gray-400"
             >
-              <ChevronRightIcon className="h-10 w-10" />
+              <ChevronRightIcon className="h-full w-10" />
             </button>
           </div>
           <Document
@@ -100,12 +94,14 @@ const PdfViewerClient = ({ pdf }: { pdf: Blob | string }) => {
               </div>
             }
           >
-            <Page
-              pageNumber={pageNumber}
-              width={pageWidth}
-              renderTextLayer={true}
-              renderAnnotationLayer={true}
-            />
+            <div className="dark:hue-rotate-180 dark:invert-[.9]">
+              <Page
+                pageNumber={pageNumber}
+                width={pageWidth}
+                renderTextLayer={true}
+                renderAnnotationLayer={true}
+              />
+            </div>
           </Document>
         </div>
       </div>

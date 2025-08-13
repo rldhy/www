@@ -18,7 +18,7 @@ const PdfViewerClient = dynamic(() => import('./PdfViewerClient'), {
   ),
 })
 
-const PdfViewer = ({ pdf }) => {
-  return <PdfViewerClient pdf={pdf} />
+const PdfViewer = ({ title, pdf }: { pdf: Blob | string; title?: string }) => {
+  return <PdfViewerClient title={title ?? 'PDF Viewer'} pdf={pdf} />
 }
 export default PdfViewer

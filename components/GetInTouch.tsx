@@ -192,7 +192,7 @@ const GetInTouch = () => {
           onChange={(e) => {
             setFullName(e.target.value)
           }}
-          className="required mb-3 block w-full rounded border border-gray-500 bg-gray-200 px-4 py-3 dark:text-black"
+          className="required mb-3 block w-full rounded border border-gray-500 bg-gray-300 px-4 py-3 dark:text-black"
         />
 
         {errors?.fullName && <p className="text-red-500">Full name cannot be empty.</p>}
@@ -209,7 +209,7 @@ const GetInTouch = () => {
           onChange={(e) => {
             setEmail(e.target.value)
           }}
-          className="required mb-3 block w-full rounded border border-gray-500 bg-gray-200 px-4 py-3 dark:text-black"
+          className="required mb-3 block w-full rounded border border-gray-500 bg-gray-300 px-4 py-3 dark:text-black"
         />
 
         {errors?.email && <p className="text-red-500">Email cannot be empty.</p>}
@@ -226,7 +226,7 @@ const GetInTouch = () => {
           onChange={(e) => {
             setSubject(e.target.value)
           }}
-          className="mb-3 block w-full rounded border border-gray-500 bg-gray-200 px-4 py-3 dark:text-black"
+          className="mb-3 block w-full rounded border border-gray-500 bg-gray-300 px-4 py-3 dark:text-black"
         />
 
         <label htmlFor="message" className="mt-4 font-bold">
@@ -240,7 +240,7 @@ const GetInTouch = () => {
           onChange={(e) => {
             setMessage(e.target.value)
           }}
-          className="required mb-3 block min-h-44 w-full rounded border border-gray-500 bg-gray-200 px-4 py-3 dark:text-black"
+          className="required mb-3 block min-h-44 w-full rounded border border-gray-500 bg-gray-300 px-4 py-3 dark:text-black"
         ></textarea>
 
         {errors?.message && <p className="text-red-500">Message cannot be empty.</p>}
