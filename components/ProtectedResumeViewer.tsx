@@ -57,7 +57,7 @@ const ProtectedResumeViewer = () => {
         </div>
       )}
 
-      {pdfBlob && <PdfViewer pdf={pdfBlob} />}
+      {pdfBlob && <PdfViewer title="Résumé" pdf={pdfBlob} />}
     </div>
   )
 }
