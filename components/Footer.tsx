@@ -26,7 +26,7 @@ export default function Footer() {
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
           {/* eslint-disable-next-line prettier/prettier */}
-          <Link href="/" className="hover:text-primary-500 dark:hover:text-primary-500">{siteMetadata.title}</Link>
+          <Link href="/" className="hover:text-primary-500 dark:hover:text-primary-500">{siteMetadata.footerTitle}</Link>
         </div>
         <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
           <div>
