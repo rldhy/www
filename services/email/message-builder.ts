@@ -29,7 +29,7 @@ export function buildGetInTouchHtml(args: GetInTouchArgs): string {
             <td style="font-weight: 600; padding: 6px 0;">Subject:</td>
             <td>${args.subject}</td>
           </tr>
-          <tr>portfolio
+          <tr>
             <td style="font-weight: 600; padding: 6px 0;">Message:</td>
             <td style="white-space: pre-wrap;">${args.message}</td>
           </tr>
