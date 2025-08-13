@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'RLODHIYA.DEV',
+  title: 'Ritwik Lodhiya | Building Software + Solving Problems',
   author: 'Ritwik Lodhiya',
-  headerTitle: 'Ritwik Lodhiya',
+  headerTitle: 'RITWIK LODHIYA',
   description: 'Sharing my projects, hobbies, and interests.',
   language: 'en-us',
   theme: 'system', // system, dark or light
