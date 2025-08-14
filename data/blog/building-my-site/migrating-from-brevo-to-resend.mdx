@@ -1,14 +1,14 @@
 ---
 title: 'Migrating from Brevo to Resend in a Next.js App'
 date: '2025-08-07'
-lastModified: '2025-08-07'
+lastModified: '2025-08-14'
 tags: [next-js, email, resend, brevo]
 draft: false
 summary: 'Why and how I replaced Brevo with Resend for sending email in my portfolio project'
 images: []
 ---
 
-I originally used [Brevo](https://www.brevo.com) (formerly Sendinblue) to handle contact form submissions on my site, and it worked fine. But [Resend](https://resend.com) offers a much simpler developer experience — built for frameworks like Next.js and Vercel.
+I originally used [Brevo](https://www.brevo.com) (formerly Sendinblue) to handle contact form submissions on my site, and it worked fine locally, but I kept running into issues with it when deployed to Vercel. [Resend](https://resend.com) offers a much simpler developer experience — built for frameworks like Next.js and Vercel.
 
 Here’s how I made the switch.
 
@@ -62,7 +62,7 @@ Both Brevo and Resend now use this for consistency.
 
 ## 🧠 Generic EmailService Wrapper
 
-I created a service that reads from `EMAIL_PROVIDER` in `.env` and routes the request to the correct implementation.
+I created a service that reads from `EMAIL_PROVIDER` in `.env` and routes the request to the correct implementation. This allows for an easy fallback, or potential future experimentation with Brevo.
 
 ```ts
 const service = new EmailService()
@@ -73,4 +73,4 @@ await service.sendGetInTouchMessage(args)
 
 Resend feels tailor-made for modern React and serverless projects. Type-safe, clean, and no extra ceremony. It also plays nicely with my Vercel deployment.
 
-No regrets!
+It's looking good so far! Try it out: [Contact Me](/contact)
