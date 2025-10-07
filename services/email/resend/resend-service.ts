@@ -1,7 +1,8 @@
 import { Resend } from 'resend'
 import { buildGetInTouchHtml, GetInTouchArgs } from '../message-builder'
+import { EmailProvider } from '../email-service'
 
-class ResendService {
+class ResendService implements EmailProvider {
   private readonly resend: Resend
 
   constructor() {

@@ -1,8 +1,8 @@
 'use client'
 
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
-import React, { FormEvent, Fragment, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import Send from './common-icons/send-filled.svg'
 import Error from './common-icons/error-filled.svg'
 import Success from './common-icons/success-filled.svg'
@@ -122,28 +122,39 @@ const GetInTouch = () => {
   }
 
   async function submitPostVerify() {
-    const res = await fetch('/api/contact', {
-      body: JSON.stringify({
-        hcaptchaToken: hcaptchaToken,
-        fullName: fullName.trim(),
-        email: email.trim(),
-        subject: subject.trim(),
-        message: message.trim(),
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
+    let success = true
+    try {
+      const res = await fetch('/api/contact', {
+        body: JSON.stringify({
+          hcaptchaToken: hcaptchaToken,
+          fullName: fullName.trim(),
+          email: email.trim(),
+          subject: subject.trim(),
+          message: message.trim(),
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
 
-    if (res.status !== 200) {
-      openErrorModal()
-    } else {
-      openSuccessModal()
-      resetInput()
+      if (res.status === 200) {
+        resetInput()
+      } else {
+        success = false
+      }
+    } catch {
+      success = false
+    } finally {
+      resetButton()
+      resetHCaptcha()
     }
-    resetButton()
-    resetHCaptcha()
+
+    if (success) {
+      openSuccessModal()
+    } else {
+      openErrorModal()
+    }
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -273,54 +284,35 @@ const GetInTouch = () => {
           </div>
         </div>
       </form>
-      <Transition appear show={showModal} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-900">
-                  <Dialog.Title className="text-xl leading-6 font-bold text-black dark:text-white dark:ring-offset-slate-500">
-                    {modalTitle}
-                  </Dialog.Title>
-                  <div className="mt-4 mb-2 flex items-center">
-                    <div className="mr-2">{modalLogo}</div>
-                    <p className="text-md text-black dark:text-white">{modalMessage}</p>
-                  </div>
+      <Dialog className="relative z-10" transition={true} open={showModal} onClose={closeModal}>
+        <div className="fixed inset-0 bg-black/25 transition duration-300 data-[closed]:opacity-0" />
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <DialogPanel
+              transition={true}
+              className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition duration-300 data-[closed]:scale-95 data-[closed]:opacity-0 dark:bg-gray-900"
+            >
+              <DialogTitle className="text-xl leading-6 font-bold text-black dark:text-white dark:ring-offset-slate-500">
+                {modalTitle}
+              </DialogTitle>
+              <div className="mt-4 mb-2 flex items-center">
+                <div className="mr-2">{modalLogo}</div>
+                <p className="text-md text-black dark:text-white">{modalMessage}</p>
+              </div>
 
-                  <div className="align-right mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+              <div className="align-right mt-4">
+                <button
+                  type="button"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
+            </DialogPanel>
           </div>
-        </Dialog>
-      </Transition>
+        </div>
+      </Dialog>
     </>
   )
 }

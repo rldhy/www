@@ -2,14 +2,16 @@ import ResendService from './resend/resend-service'
 import BrevoService from './brevo/brevo-service'
 import type { GetInTouchArgs } from './message-builder'
 
-interface EmailProvider {
+export interface EmailProvider {
   sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean>
 }
 
 class EmailService implements EmailProvider {
+  private disableEmailSend: boolean
   private provider: EmailProvider
 
   constructor() {
+    this.disableEmailSend = process.env.DISABLE_EMAIL_SEND?.toLowerCase() === 'true'
     const providerName = process.env.EMAIL_PROVIDER?.toLowerCase()
 
     switch (providerName) {
@@ -24,7 +26,10 @@ class EmailService implements EmailProvider {
     }
   }
 
-  sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean> {
+  async sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean> {
+    if (this.disableEmailSend) {
+      return true
+    }
     return this.provider.sendGetInTouchMessage(args)
   }
 }

@@ -4645,12 +4645,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.2.0":
-  version: 19.2.0
-  resolution: "@types/react@npm:19.2.0"
+"@types/react@npm:19.2.2":
+  version: 19.2.2
+  resolution: "@types/react@npm:19.2.2"
   dependencies:
     csstype: ^3.0.2
-  checksum: 1bfef433bb4d237487835423eaf4789bad94bcf96d4106f5c53f3109dc8451edea6b04be3f6e9d374f1a76672bb66e58d68e64f45535f0b6c804930a731dd19e
+  checksum: 7eb2d316dd5a6c02acb416524b50bae932c38d055d26e0f561ca23c009c686d16a2b22fcbb941eecbe2ecb167f119e29b9d0142d9d056dd381352c43413b60da
   languageName: node
   linkType: hard
 
@@ -12961,7 +12961,7 @@ __metadata:
     "@tailwindcss/postcss": 4.1.14
     "@tailwindcss/typography": 0.5.19
     "@types/mdx": 2.0.13
-    "@types/react": 19.2.0
+    "@types/react": 19.2.2
     "@typescript-eslint/eslint-plugin": 8.46.0
     "@typescript-eslint/parser": 8.46.0
     autoprefixer: 10.4.21

@@ -94,22 +94,14 @@ export default function Greeting({ showFlags }) {
   useEffect(() => {
     setTimeout(() => {
       startAnimation()
-    }, 500)
+    }, 200)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <div className="flex justify-between">
-        <Transition
-          show={isShowing}
-          enter="transition-opacity duration-200"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="flex w-5/6 flex-row align-middle">
+        <Transition show={isShowing}>
+          <div className="flex w-5/6 flex-row align-middle transition data-closed:opacity-0">
             <div className="w-4/5 align-middle">
               <span title={getGreetingTitle(greeting)}>{greeting.message}</span>
             </div>

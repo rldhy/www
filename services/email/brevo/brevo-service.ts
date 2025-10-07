@@ -4,8 +4,9 @@ import {
   TransactionalEmailsApiApiKeys,
 } from '@getbrevo/brevo'
 import { buildGetInTouchHtml, GetInTouchArgs } from '../message-builder'
+import { EmailProvider } from '../email-service'
 
-class BrevoService {
+class BrevoService implements EmailProvider {
   private readonly apiKey: string
 
   constructor() {
