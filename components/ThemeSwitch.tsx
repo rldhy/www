@@ -1,8 +1,16 @@
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import { useTheme } from 'next-themes'
-import { Menu, RadioGroup, Transition } from '@headlessui/react'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Radio,
+  RadioGroup,
+  Transition,
+} from '@headlessui/react'
 
 const Sun = () => (
   <svg
@@ -46,25 +54,29 @@ const Monitor = () => (
 )
 
 const ThemeSwitch = () => {
-  const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
 
-  // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), [])
-
-  if (!mounted) {
-    return null
+  function getThemeIcon() {
+    if (theme === 'system') {
+      return <Monitor />
+    } else if (resolvedTheme === 'light' && theme !== 'system') {
+      return <Sun />
+    } else if (resolvedTheme === 'dark' && theme !== 'system') {
+      return <Moon />
+    } else {
+      return <Monitor />
+    }
   }
 
   return (
     <div className="mr-5">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button>
+          <MenuButton>
             <div className="hover:text-primary-500 dark:hover:text-primary-500">
-              {theme === 'system' ? <Monitor /> : resolvedTheme === 'dark' ? <Moon /> : <Sun />}
+              {getThemeIcon()}
             </div>
-          </Menu.Button>
+          </MenuButton>
         </div>
         <Transition
           as={Fragment}
@@ -75,42 +87,42 @@ const ThemeSwitch = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="ring-opacity-5 absolute right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black focus:outline-none dark:bg-gray-800">
+          <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black focus:outline-none dark:bg-gray-800">
             <RadioGroup value={theme} onChange={setTheme}>
               <div className="p-1">
-                <RadioGroup.Option value="light">
-                  <Menu.Item>
+                <Radio value="light">
+                  <MenuItem>
                     <button className="group hover:text-primary-500 dark:hover:text-primary-500 flex w-full items-center rounded-md px-2 py-2 text-sm">
                       <div className="mr-2">
                         <Sun />
                       </div>
                       Light
                     </button>
-                  </Menu.Item>
-                </RadioGroup.Option>
-                <RadioGroup.Option value="dark">
-                  <Menu.Item>
+                  </MenuItem>
+                </Radio>
+                <Radio value="dark">
+                  <MenuItem>
                     <button className="group hover:text-primary-500 dark:hover:text-primary-500 flex w-full items-center rounded-md px-2 py-2 text-sm">
                       <div className="mr-2">
                         <Moon />
                       </div>
                       Dark
                     </button>
-                  </Menu.Item>
-                </RadioGroup.Option>
-                <RadioGroup.Option value="system">
-                  <Menu.Item>
+                  </MenuItem>
+                </Radio>
+                <Radio value="system">
+                  <MenuItem>
                     <button className="group hover:text-primary-500 dark:hover:text-primary-500 flex w-full items-center rounded-md px-2 py-2 text-sm">
                       <div className="mr-2">
                         <Monitor />
                       </div>
                       System
                     </button>
-                  </Menu.Item>
-                </RadioGroup.Option>
+                  </MenuItem>
+                </Radio>
               </div>
             </RadioGroup>
-          </Menu.Items>
+          </MenuItems>
         </Transition>
       </Menu>
     </div>

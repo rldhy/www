@@ -28,7 +28,7 @@ const components = {
   bluesky: Bluesky,
 }
 
-type SocialIconProps = {
+interface SocialIconProps {
   kind: keyof typeof components
   href: string | undefined
   size?: number
