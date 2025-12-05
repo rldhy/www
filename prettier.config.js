@@ -1,4 +1,4 @@
-export default {
+const prettierConfig = {
   semi: false,
   singleQuote: true,
   printWidth: 100,
@@ -8,3 +8,5 @@ export default {
   bracketSpacing: true,
   plugins: ['prettier-plugin-tailwindcss'],
 }
+
+export default prettierConfig
