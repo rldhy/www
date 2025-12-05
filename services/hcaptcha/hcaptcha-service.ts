@@ -9,7 +9,7 @@ class HCaptchaService {
   }
 
   async verifyToken(token: string): Promise<boolean> {
-    let isVerified: boolean = false
+    let isVerified = false
 
     try {
       const response = await fetch(`https://hcaptcha.com/siteverify`, {
