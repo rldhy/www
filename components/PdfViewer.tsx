@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic'
 
 // Dynamically import the PDF viewer client component.
-const PdfViewerClient = dynamic(() => import('./PdfViewerClient'), {
+const InnerPdfViewerClient = dynamic(() => import('./PdfViewerClient'), {
   ssr: false,
   loading: () => (
     <div
@@ -18,7 +18,7 @@ const PdfViewerClient = dynamic(() => import('./PdfViewerClient'), {
   ),
 })
 
-const PdfViewer = ({ title, pdf }: { pdf: Blob | string; title?: string }) => {
-  return <PdfViewerClient title={title ?? 'PDF Viewer'} pdf={pdf} />
+const PdfViewer = ({ title, pdf }: { title: string; pdf: Blob | string }) => {
+  return <InnerPdfViewerClient title={title} pdf={pdf} />
 }
 export default PdfViewer
