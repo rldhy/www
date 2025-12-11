@@ -1,39 +1,16 @@
-import eslint from '@eslint/js'
-import tsEslint from 'typescript-eslint'
-import tsParser from '@typescript-eslint/parser'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   // Next.js + Core Web Vitals + TS rules
   ...nextVitals,
   ...nextTs,
 
-  // TypeScript recommended + stylistic rules
-  ...tsEslint.configs.recommended,
-  ...tsEslint.configs.stylistic,
-
-  // Prettier integration for flat config
-  eslintPluginPrettierRecommended,
-
-  // Project-specific settings and rule tweaks
+  // Your project-specific overrides
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tsEslint.plugin,
-    },
     rules: {
       // React / Next tweaks
       'react/react-in-jsx-scope': 'off',
@@ -58,8 +35,9 @@ export default defineConfig([
     },
   },
 
+  // Prettier integration for flat config
+  eslintPluginPrettierRecommended,
+
   // Ignore generated / build artifacts
-  {
-    ignores: [''],
-  },
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
 ])
