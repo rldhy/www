@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
+import { formatDate } from 'utils/formatDate'
+import { CoreContent } from 'utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
