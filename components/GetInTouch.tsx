@@ -65,17 +65,6 @@ const GetInTouch = () => {
     return isValid
   }
 
-  function getHCaptchaTheme() {
-    switch (resolvedTheme) {
-      case 'dark':
-        return 'dark'
-      case 'light':
-        return 'light'
-      default:
-        return undefined
-    }
-  }
-
   function submitHCaptcha(token: string) {
     setHcaptchaToken(token)
     setHcaptchaSubmited(true)
@@ -273,7 +262,7 @@ const GetInTouch = () => {
               <HCaptcha
                 ref={hcaptchaRef}
                 size="normal"
-                theme={getHCaptchaTheme}
+                theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
                 sitekey={hcaptchaSiteKey}
                 onVerify={onHCaptchaVerify}
                 onExpire={onHCaptchaExpiryOrError}
