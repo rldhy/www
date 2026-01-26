@@ -1,11 +1,11 @@
 import { writeFileSync, mkdirSync } from 'fs'
 import path from 'path'
 import { slug } from 'github-slugger'
-import { escape } from '/utils/htmlEscaper'
+import { escape } from '../utils/htmlEscaper.ts'
 import siteMetadata from '../data/siteMetadata.js'
 import tagData from '../app/tag-data.json' with { type: 'json' }
 import { allBlogs } from '../.contentlayer/generated/index.mjs'
-import { sortPosts } from '/utils/contentlayer'
+import { sortPosts } from '../utils/contentlayer.ts'
 
 const generateRssItem = (config, post) => `
   <item>

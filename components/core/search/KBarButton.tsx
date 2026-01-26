@@ -1,3 +1,5 @@
+'use client'
+
 import { DetailedHTMLProps, HTMLAttributes } from 'react'
 import { useKBar } from 'kbar'
 
