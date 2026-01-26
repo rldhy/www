@@ -13,6 +13,17 @@ const ProtectedResumeViewer = () => {
   const hcaptchaRef = useRef<HCaptcha>(null)
   const hcaptchaSiteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || ''
 
+  function getHCaptchaTheme() {
+    switch (resolvedTheme) {
+      case 'dark':
+        return 'dark'
+      case 'light':
+        return 'light'
+      default:
+        return undefined
+    }
+  }
+
   const handleCaptchaVerify = async (token: string, ekey: string) => {
     if (!token || !ekey) {
       return
@@ -47,7 +58,7 @@ const ProtectedResumeViewer = () => {
           <HCaptcha
             ref={hcaptchaRef}
             size="normal"
-            theme={resolvedTheme}
+            theme={getHCaptchaTheme}
             sitekey={hcaptchaSiteKey}
             onVerify={handleCaptchaVerify}
             onExpire={handleCaptchaError}
