@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import type { Authors } from 'contentlayer/generated'
+import type { Authors } from 'content-collections'
 import SocialIcon from '@/components/social-icons'
 import PinOnMapSvg from '@/components/common-icons/pin-on-map.svg'
 import Image from '@/components/Image'

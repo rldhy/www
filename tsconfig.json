@@ -33,8 +33,8 @@
       "@/css/*": [
         "css/*"
       ],
-      "contentlayer/generated": [
-        "./.contentlayer/generated"
+      "content-collections": [
+        "./.content-collections/generated"
       ]
     },
     "plugins": [
@@ -54,8 +54,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.json",
-    ".contentlayer/generated",
-    ".contentlayer/generated/**/*.json",
+    ".content-collections/generated",
+    ".content-collections/generated/**/*.json",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

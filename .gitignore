@@ -28,6 +28,9 @@ public/sitemap.xml
 # search
 /public/search.json
 
+# pdfjs-dist
+/public/pdfjs-dist/
+
 # misc
 .DS_Store
 
@@ -45,6 +48,8 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+# Content Collections
+.content-collections
 
 #IDEs
 .idea

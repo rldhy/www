@@ -1,13 +1,15 @@
-import { withContentlayer } from 'next-contentlayer2'
+import type { NextConfig } from 'next'
+import { withContentCollections } from '@content-collections/next'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 
 const withBundleAnalyzer = NextBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })
+const withContentCollectionsTyped = withContentCollections as (config: NextConfig) => NextConfig
 
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' umami.is *.umami.is hcaptcha.com *.hcaptcha.com unpkg.com;
-  worker-src 'self' 'unsafe-eval' 'unsafe-inline' cloudflare.com *.cloudflare.com unpkg.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' umami.is *.umami.is hcaptcha.com *.hcaptcha.com;
+  worker-src 'self' 'unsafe-eval' 'unsafe-inline' cloudflare.com *.cloudflare.com;
   style-src 'self' 'unsafe-inline' hcaptcha.com *.hcaptcha.com googleapis.com *.googleapis.com;
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
@@ -54,17 +56,26 @@ const securityHeaders = [
   },
 ]
 
-/**
- * @type {import('next').NextConfig}
- **/
-const nextConfig = () => {
-  const plugins = [withContentlayer, withBundleAnalyzer]
-  return plugins.reduce((acc, next) => next(acc), {
+const nextConfig: () => NextConfig = () => {
+  const plugins: Array<(config: NextConfig) => NextConfig> = [
+    withContentCollectionsTyped,
+    withBundleAnalyzer,
+  ]
+
+  return plugins.reduce<NextConfig>((acc, next) => next(acc), {
     allowedDevOrigins: ['localhost.com'],
     reactStrictMode: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     images: {
       remotePatterns: [],
+    },
+    turbopack: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
     },
     async headers() {
       return [
@@ -73,14 +84,6 @@ const nextConfig = () => {
           headers: securityHeaders,
         },
       ]
-    },
-    webpack: (config, options) => {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      })
-
-      return config
     },
   })
 }

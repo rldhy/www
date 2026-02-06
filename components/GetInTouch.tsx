@@ -33,7 +33,7 @@ const GetInTouch = () => {
   const [modalTitle, setModalTitle] = useState('')
   const [modalMessage, setModalMessage] = useState('')
   const [modalLogo, setModalLogo] = useState(<></>)
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme, theme } = useTheme()
 
   const hcaptchaRef = React.useRef<HCaptcha>(null)
   const hcaptchaSiteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || ''
@@ -262,7 +262,7 @@ const GetInTouch = () => {
               <HCaptcha
                 ref={hcaptchaRef}
                 size="normal"
-                theme={resolvedTheme}
+                theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
                 sitekey={hcaptchaSiteKey}
                 onVerify={onHCaptchaVerify}
                 onExpire={onHCaptchaExpiryOrError}

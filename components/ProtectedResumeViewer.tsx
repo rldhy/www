@@ -47,7 +47,7 @@ const ProtectedResumeViewer = () => {
           <HCaptcha
             ref={hcaptchaRef}
             size="normal"
-            theme={resolvedTheme}
+            theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
             sitekey={hcaptchaSiteKey}
             onVerify={handleCaptchaVerify}
             onExpire={handleCaptchaError}

@@ -8,8 +8,11 @@ import ChevronRightIcon from './common-icons/chevron-right-rounded.svg'
 import 'react-pdf/dist/Page/TextLayer.css'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 
-const PDFJS_SRC = `https://unpkg.com/pdfjs-dist@${pdfjs.version}`
-pdfjs.GlobalWorkerOptions.workerSrc = `${PDFJS_SRC}/build/pdf.worker.min.mjs`
+const PDFJS_SRC = 'pdfjs-dist'
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  `${PDFJS_SRC}/build/pdf.worker.min.mjs`,
+  import.meta.url
+).toString()
 
 const options = {
   cMapUrl: `${PDFJS_SRC}/cmaps/`,
