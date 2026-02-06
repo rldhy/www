@@ -1,8 +1,19 @@
-import type { Document, MDX } from 'contentlayer2/core'
-
 const isProduction = process.env.NODE_ENV === 'production'
 
-export type MDXDocument = Document & { body: MDX }
+export type MDXDocument = {
+  body: {
+    raw: string
+    code: string
+  }
+  _raw?: {
+    sourceFilePath?: string
+    sourceFileName?: string
+    sourceFileDir?: string
+    flattenedPath?: string
+    contentType?: string
+  }
+  _id?: string
+}
 export type MDXDocumentDate = MDXDocument & {
   date: string
 }

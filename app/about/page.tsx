@@ -1,7 +1,7 @@
-import { Authors, allAuthors } from 'contentlayer/generated'
+import { Authors, allAuthors } from 'content-collections'
 import { MDXLayoutRenderer } from '@/components/core/mdx-components'
 import AuthorLayout from '@/layouts/AuthorLayout'
-import { coreContent } from 'utils/contentlayer'
+import { coreContent } from 'utils/content'
 import { genPageMetadata } from 'app/seo'
 
 export const metadata = genPageMetadata({ title: 'About' })

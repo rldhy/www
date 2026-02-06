@@ -5,7 +5,8 @@ import type { Action } from 'kbar'
 import { KBarProvider } from 'kbar'
 import { useRouter } from 'next/navigation.js'
 import { KBarModal } from './KBarModal'
-import { CoreContent, MDXDocument } from '../../../utils/contentlayer'
+import { CoreContent } from '../../../utils/content'
+import type { Blog } from 'content-collections'
 import { formatDate } from '../../../utils/formatDate'
 
 export interface KBarSearchProps {
@@ -47,7 +48,7 @@ export const KBarSearchProvider: FC<{
   const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    const mapPosts = (posts: CoreContent<MDXDocument>[]) => {
+    const mapPosts = (posts: CoreContent<Blog>[]) => {
       const actions: Action[] = []
       for (const post of posts) {
         actions.push({
