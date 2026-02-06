@@ -28,6 +28,9 @@ public/sitemap.xml
 # search
 /public/search.json
 
+# pdfjs-dist
+/public/pdfjs-dist/
+
 # misc
 .DS_Store
 

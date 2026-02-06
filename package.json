@@ -10,7 +10,7 @@
   "scripts": {
     "start": "next dev",
     "dev": "cross-env INIT_CWD=$PWD next dev",
-    "build": "cross-env INIT_CWD=$PWD next build && node ./scripts/postbuild.mjs",
+    "build": "cross-env INIT_CWD=$PWD && node ./scripts/prebuild.mjs && next build && node ./scripts/postbuild.mjs",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "eslint --fix app components layouts scripts services"
@@ -24,8 +24,7 @@
     "@tailwindcss/forms": "0.5.11",
     "@tailwindcss/postcss": "4.1.18",
     "@tailwindcss/typography": "0.5.19",
-    "copyfiles": "2.4.1",
-    "esbuild": "0.27.2",
+    "esbuild": "0.27.3",
     "github-slugger": "2.0.0",
     "gray-matter": "4.0.3",
     "image-size": "2.0.2",
@@ -62,7 +61,7 @@
     "@svgr/webpack": "8.1.0",
     "@types/mdx": "2.0.13",
     "@types/node": "25.2.1",
-    "@types/react": "19.2.10",
+    "@types/react": "19.2.13",
     "@typescript-eslint/eslint-plugin": "8.54.0",
     "@typescript-eslint/parser": "8.54.0",
     "cross-env": "10.1.0",
