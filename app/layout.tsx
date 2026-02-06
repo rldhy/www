@@ -1,6 +1,5 @@
 import 'css/tailwind.css'
 
-import { Space_Grotesk } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from '@/components/core/analytics'
 import { SearchProvider, SearchConfig } from '@/components/core/search'
 import Header from '@/components/Header'
@@ -9,12 +8,6 @@ import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
-
-const space_grotesk = Space_Grotesk({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-grotesk',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -60,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} data-scroll-behavior="smooth" scroll-smooth`}
+      className={'data-scroll-behavior="smooth" scroll-smooth'}
       suppressHydrationWarning
     >
       <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />

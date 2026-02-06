@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { CoreContent } from 'utils/contentlayer'
-import type { Blog, Authors } from 'contentlayer/generated'
+import { CoreContent } from 'utils/content'
+import type { Blog, Authors } from 'content-collections'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
