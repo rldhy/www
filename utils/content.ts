@@ -17,14 +17,6 @@ export type MDXDocument = {
 export type MDXDocumentDate = MDXDocument & {
   date: string
 }
-export type MDXBlog = MDXDocumentDate & {
-  tags?: string[]
-  draft?: boolean
-}
-
-export type MDXAuthor = MDXDocument & {
-  name: string
-}
 
 export function dateSortDesc(a: string, b: string) {
   if (a > b) return -1
@@ -43,17 +35,6 @@ export function sortPosts<T extends MDXDocumentDate>(allBlogs: T[], dateKey: str
   return allBlogs.sort((a, b) => dateSortDesc(a[dateKey], b[dateKey]))
 }
 
-/**
- * Kept for backwards compatibility
- * Please use `sortPosts` instead
- * @deprecated
- * @param {MDXBlog[]} allBlogs
- * @return {*}
- */
-export function sortedBlogPost(allBlogs: MDXDocumentDate[]) {
-  return sortPosts(allBlogs)
-}
-
 type ConvertUndefined<T> = OrNull<{
   [K in keyof T as undefined extends T[K] ? K : never]-?: T[K]
 }>
@@ -62,24 +43,6 @@ type PickRequired<T> = {
   [K in keyof T as undefined extends T[K] ? never : K]: T[K]
 }
 type ConvertPick<T> = ConvertUndefined<T> & PickRequired<T>
-
-/**
- * A typesafe omit helper function
- * @example pick(content, ['title', 'description'])
- *
- * @param {Obj} obj
- * @param {Keys[]} keys
- * @return {*}  {ConvertPick<{ [K in Keys]: Obj[K] }>}
- */
-export const pick = <Obj, Keys extends keyof Obj>(
-  obj: Obj,
-  keys: Keys[]
-): ConvertPick<{ [K in Keys]: Obj[K] }> => {
-  return keys.reduce((acc, key) => {
-    acc[key] = obj[key] ?? null
-    return acc
-  }, {} as any)
-}
 
 /**
  * A typesafe omit helper function
