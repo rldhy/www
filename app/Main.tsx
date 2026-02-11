@@ -11,7 +11,7 @@ export default function Home({ posts }) {
   return (
     <>
       <div className="my-6 flex flex-col items-center gap-x-12 xl:mb-12 xl:flex-row">
-        <div className="mr-8 pt-6">
+        <div className="w-full pt-6">
           <h1 className="pb-6 text-2xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             <Greeting showFlags={true} />
           </h1>
