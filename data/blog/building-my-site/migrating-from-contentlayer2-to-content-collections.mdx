@@ -1,0 +1,473 @@
+---
+title: 'Migrating from contentlayer2 to content-collections'
+date: '2026-02-12'
+lastModified: '2026-02-12'
+tags: [next-js, mdx, contentlayer, contentlayer2, content-collections, turbopack, webpack]
+draft: false
+summary: 'A deep dive into moving my MDX pipeline from contentlayer to content-collections'
+images: []
+---
+
+My website has been using [contentlayer](https://contentlayer.dev/), or specifically its fork [contentlayer2](https://github.com/timlrx/contentlayer2) in order to generate my blog pages with mdx content inputs.
+
+Unfortunately, contentlayer is no longer maintained (see project [README](https://github.com/contentlayerdev/contentlayer)), and this made other changes such as moving from webpack to turbopack more challenging. I decided to investigate alternatives, and found that [content-collections](https://www.content-collections.dev/) would be a suitable alternative.
+
+I migrated my blog content pipeline from contentlayer to content-collections. The goal was to keep the same MDX output and typing while simplifying the config surface area and the Next.js integration.
+
+This is a deep dive into the actual changes, with the full config snippets and the reasoning behind each mapping.
+
+## What I wanted to preserve
+
+- Same `data/` folder layout and frontmatter fields.
+- Same MDX output (remark/rehype plugins, code highlighting, citations).
+- Same derived fields (slug, reading time, TOC, structured data).
+- Same build side effects (tag counts and search index).
+- Same import ergonomics in pages (`allBlogs`, `Blog`, etc.).
+
+## Contentlayer (before)
+
+```ts
+import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer2/source-files'
+import { writeFileSync } from 'fs'
+import readingTime from 'reading-time'
+import { slug } from 'github-slugger'
+import path from 'path'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import {
+  remarkExtractFrontmatter,
+  remarkCodeTitles,
+  remarkImgToJsx,
+  extractTocHeadings,
+} from './utils/mdx-plugins'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeKatex from 'rehype-katex'
+import rehypeCitation from 'rehype-citation'
+import rehypePrismPlus from 'rehype-prism-plus'
+import rehypePresetMinify from 'rehype-preset-minify'
+import siteMetadata from './data/siteMetadata'
+import { allCoreContent, sortPosts } from './utils/contentlayer'
+
+const root = process.cwd()
+const isProduction = process.env.NODE_ENV === 'production'
+
+const computedFields: ComputedFields = {
+  readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
+  slug: {
+    type: 'string',
+    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),
+  },
+  path: {
+    type: 'string',
+    resolve: (doc) => doc._raw.flattenedPath,
+  },
+  filePath: {
+    type: 'string',
+    resolve: (doc) => doc._raw.sourceFilePath,
+  },
+  toc: { type: 'string', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+}
+
+function createTagCount(allBlogs) {
+  const tagCount: Record<string, number> = {}
+  allBlogs.forEach((file) => {
+    if (file.tags && (!isProduction || file.draft !== true)) {
+      file.tags.forEach((tag) => {
+        const formattedTag = slug(tag)
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1
+        } else {
+          tagCount[formattedTag] = 1
+        }
+      })
+    }
+  })
+  writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+}
+
+function createSearchIndex(allBlogs) {
+  if (
+    siteMetadata?.search?.provider === 'kbar' &&
+    siteMetadata.search.kbarConfig.searchDocumentsPath
+  ) {
+    writeFileSync(
+      `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
+      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+    )
+    console.log('Local search index generated...')
+  }
+}
+
+export const Blog = defineDocumentType(() => ({
+  name: 'Blog',
+  filePathPattern: 'blog/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    date: { type: 'date', required: true },
+    tags: { type: 'list', of: { type: 'string' }, default: [] },
+    lastModified: { type: 'date' },
+    draft: { type: 'boolean' },
+    summary: { type: 'string' },
+    images: { type: 'json' },
+    authors: { type: 'list', of: { type: 'string' } },
+    layout: { type: 'string' },
+    bibliography: { type: 'string' },
+    canonicalUrl: { type: 'string' },
+  },
+  computedFields: {
+    ...computedFields,
+    structuredData: {
+      type: 'json',
+      resolve: (doc) => ({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: doc.title,
+        datePublished: doc.date,
+        dateModified: doc.lastModified || doc.date,
+        description: doc.summary,
+        image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
+        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+      }),
+    },
+  },
+}))
+
+export const Authors = defineDocumentType(() => ({
+  name: 'Authors',
+  filePathPattern: 'authors/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    name: { type: 'string', required: true },
+    avatar: { type: 'string' },
+    location: { type: 'string' },
+    occupation: { type: 'string' },
+    company: { type: 'string' },
+    companyUrl: { type: 'string' },
+    email: { type: 'string' },
+    linkedin: { type: 'string' },
+    github: { type: 'string' },
+    buyMeCoffee: { type: 'string' },
+    layout: { type: 'string' },
+  },
+  computedFields,
+}))
+
+export default makeSource({
+  contentDirPath: 'data',
+  documentTypes: [Blog, Authors],
+  mdx: {
+    cwd: process.cwd(),
+    remarkPlugins: [
+      remarkExtractFrontmatter,
+      remarkGfm,
+      remarkCodeTitles,
+      remarkMath,
+      remarkImgToJsx,
+    ],
+    rehypePlugins: [
+      rehypeSlug,
+      rehypeAutolinkHeadings,
+      rehypeKatex,
+      [rehypeCitation, { path: path.join(root, 'data') }],
+      [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+      rehypePresetMinify,
+    ],
+  },
+  onSuccess: async (importData) => {
+    const { allBlogs } = await importData()
+    createTagCount(allBlogs)
+    createSearchIndex(allBlogs)
+  },
+})
+```
+
+## Content-collections (after)
+
+```ts
+import { defineCollection, defineConfig } from '@content-collections/core'
+import type { AnyCollection } from '@content-collections/core'
+import { compileMDX } from '@content-collections/mdx'
+import { writeFileSync } from 'fs'
+import path from 'path'
+import readingTime from 'reading-time'
+import { slug } from 'github-slugger'
+import { z } from 'zod'
+import siteMetadata from './data/siteMetadata'
+import { allCoreContent, sortPosts } from './utils/content'
+import { extractTocHeadings, remarkCodeTitles, remarkImgToJsx } from './utils/mdx-plugins'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeCitation from 'rehype-citation'
+import rehypeKatex from 'rehype-katex'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypePrismPlus from 'rehype-prism-plus'
+import rehypeSlug from 'rehype-slug'
+
+const root = process.cwd()
+const isProduction = process.env.NODE_ENV === 'production'
+
+const mdxOptions = {
+  cwd: process.cwd(),
+  remarkPlugins: [remarkGfm, remarkCodeTitles, remarkMath, remarkImgToJsx],
+  rehypePlugins: [
+    rehypeSlug,
+    rehypeAutolinkHeadings,
+    rehypeKatex,
+    [rehypeCitation, { path: path.join(root, 'data') }],
+    [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+    rehypePresetMinify,
+  ],
+}
+
+function createTagCount(allBlogs) {
+  const tagCount: Record<string, number> = {}
+  allBlogs.forEach((file) => {
+    if (file.tags && (!isProduction || file.draft !== true)) {
+      file.tags.forEach((tag) => {
+        const formattedTag = slug(tag)
+        if (formattedTag in tagCount) {
+          tagCount[formattedTag] += 1
+        } else {
+          tagCount[formattedTag] = 1
+        }
+      })
+    }
+  })
+  writeFileSync('./app/tag-data.json', JSON.stringify(tagCount))
+}
+
+function createSearchIndex(allBlogs) {
+  if (
+    siteMetadata?.search?.provider === 'kbar' &&
+    siteMetadata.search.kbarConfig.searchDocumentsPath
+  ) {
+    writeFileSync(
+      `public/${siteMetadata.search.kbarConfig.searchDocumentsPath}`,
+      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+    )
+    console.log('Local search index generated...')
+  }
+}
+
+const blogs = defineCollection({
+  name: 'blogs',
+  typeName: 'Blog',
+  directory: 'data',
+  include: 'blog/**/*.mdx',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    tags: z.array(z.string()).default([]),
+    lastModified: z.string().optional(),
+    draft: z.boolean().optional(),
+    summary: z.string().optional(),
+    images: z.array(z.string()).default([]),
+    authors: z.array(z.string()).optional(),
+    layout: z.string().optional(),
+    bibliography: z.string().optional(),
+    canonicalUrl: z.string().optional(),
+    content: z.string(),
+  }),
+  transform: async (document, context) => {
+    const code = await compileMDX(context, document, mdxOptions)
+    const toc = await extractTocHeadings(document.content)
+    const flattenedPath = document._meta.path
+
+    return {
+      ...document,
+      body: {
+        raw: document.content,
+        code,
+      },
+      readingTime: readingTime(document.content),
+      slug: flattenedPath.replace(/^.+?(\/)/, ''),
+      path: flattenedPath,
+      filePath: document._meta.filePath,
+      toc,
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: document.title,
+        datePublished: document.date,
+        dateModified: document.lastModified || document.date,
+        description: document.summary,
+        image: document.images?.length ? document.images[0] : siteMetadata.socialBanner,
+        url: `${siteMetadata.siteUrl}/${flattenedPath}`,
+      },
+      _raw: {
+        sourceFilePath: document._meta.filePath,
+        sourceFileName: document._meta.fileName,
+        sourceFileDir: document._meta.directory,
+        flattenedPath,
+        contentType: 'mdx',
+      },
+      _id: document._meta.filePath,
+    }
+  },
+  onSuccess: (docs) => {
+    createTagCount(docs)
+    createSearchIndex(docs)
+  },
+}) as unknown as AnyCollection
+
+const authors = defineCollection({
+  name: 'authors',
+  typeName: 'Authors',
+  directory: 'data',
+  include: 'authors/**/*.mdx',
+  schema: z.object({
+    name: z.string(),
+    avatar: z.string().optional(),
+    location: z.string().optional(),
+    occupation: z.string().optional(),
+    company: z.string().optional(),
+    companyUrl: z.string().optional(),
+    email: z.string().optional(),
+    linkedin: z.string().optional(),
+    github: z.string().optional(),
+    buyMeCoffee: z.string().optional(),
+    layout: z.string().optional(),
+    content: z.string(),
+  }),
+  transform: async (document, context) => {
+    const code = await compileMDX(context, document, mdxOptions)
+    const flattenedPath = document._meta.path
+
+    return {
+      ...document,
+      body: {
+        raw: document.content,
+        code,
+      },
+      readingTime: readingTime(document.content),
+      slug: flattenedPath.replace(/^.+?(\/)/, ''),
+      path: flattenedPath,
+      filePath: document._meta.filePath,
+      toc: await extractTocHeadings(document.content),
+      _raw: {
+        sourceFilePath: document._meta.filePath,
+        sourceFileName: document._meta.fileName,
+        sourceFileDir: document._meta.directory,
+        flattenedPath,
+        contentType: 'mdx',
+      },
+      _id: document._meta.filePath,
+    }
+  },
+}) as unknown as AnyCollection
+
+export default defineConfig({
+  collections: [blogs, authors],
+})
+```
+
+## What changed and why
+
+### 1) Document types to collections
+
+contentlayer2 uses `defineDocumentType` and `makeSource`. content-collections flips that to `defineCollection` + `defineConfig`.
+
+- `Blog` and `Authors` become `blogs` and `authors` collections.
+- The `contentDirPath` mapping becomes `directory` + `include`.
+- The schema is defined using Zod, which makes validation explicit and TypeScript-friendly.
+
+### 2) Computed fields to transform
+
+contentlayer2 lets you attach `computedFields`. In content-collections, you build the final shape in `transform`.
+
+This is where I moved:
+
+- `readingTime`
+- `slug`, `path`, `filePath`
+- `toc`
+- `structuredData`
+- `_raw` metadata and `_id`
+
+It is a slightly more manual step, but it gives you full control over the final document shape.
+
+### 3) MDX pipeline kept intact
+
+The remark and rehype plugin list stayed the same. The only change is that content-collections uses `compileMDX` and you pass your plugin list into `mdxOptions`.
+
+```ts
+const mdxOptions = {
+  cwd: process.cwd(),
+  remarkPlugins: [remarkGfm, remarkCodeTitles, remarkMath, remarkImgToJsx],
+  rehypePlugins: [
+    rehypeSlug,
+    rehypeAutolinkHeadings,
+    rehypeKatex,
+    [rehypeCitation, { path: path.join(root, 'data') }],
+    [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+    rehypePresetMinify,
+  ],
+}
+```
+
+Then in `transform`:
+
+```ts
+const code = await compileMDX(context, document, mdxOptions)
+```
+
+### 4) Side effects moved to `onSuccess`
+
+I still generate:
+
+- tag counts for `/tags`
+- the Kbar search index
+
+content-collections exposes an `onSuccess` hook with the documents array, which maps cleanly to the old `importData()` workflow.
+
+### 5) Type imports stay simple
+
+content-collections generates types and data accessors that you import directly:
+
+```ts
+import { allBlogs } from 'content-collections'
+import type { Blog } from 'content-collections'
+```
+
+So no changes were needed in the rest of the app beyond updating the import path.
+
+## Next.js integration
+
+content-collections ships a Next plugin. I wrapped my Next config with `withContentCollections` and left everything else untouched.
+
+```ts
+import { withContentCollections } from '@content-collections/next'
+
+const withContentCollectionsTyped = withContentCollections as (config: NextConfig) => NextConfig
+
+export default withContentCollectionsTyped({
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+})
+```
+
+This is the only Next.js change I needed for the new pipeline to build during dev and production.
+
+## Mapping checklist
+
+Here is the short mapping guide I used while migrating:
+
+- `defineDocumentType` -> `defineCollection`
+- `makeSource` -> `defineConfig`
+- `fields` -> Zod `schema`
+- `computedFields` -> `transform`
+- `mdx` block -> `compileMDX` + `mdxOptions`
+- `onSuccess(importData)` -> `onSuccess(docs)`
+
+## Gotchas I hit
+
+- content-collections does not automatically inject `_raw` metadata, so I recreated the fields I rely on.
+- date fields are strings in the Zod schema, so I kept them as strings to avoid type churn.
+- you are responsible for returning `body` with both `raw` and compiled `code`.
+
+## Result
+
+This was a clean migration. Most of my time went into making sure the final document shape matched what the app already expected. After that, the switch was mostly an import change and a new config file.
+
+If you already have a working contentlayer2 setup, content-collections is a straightforward, low-risk swap.

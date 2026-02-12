@@ -285,12 +285,12 @@ const GetInTouch = () => {
         </div>
       </form>
       <Dialog className="relative z-10" transition={true} open={showModal} onClose={closeModal}>
-        <div className="fixed inset-0 bg-black/25 transition duration-300 data-[closed]:opacity-0" />
+        <div className="fixed inset-0 bg-black/25 transition duration-300 data-closed:opacity-0" />
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <DialogPanel
               transition={true}
-              className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition duration-300 data-[closed]:scale-95 data-[closed]:opacity-0 dark:bg-gray-900"
+              className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition duration-300 data-closed:scale-95 data-closed:opacity-0 dark:bg-gray-900"
             >
               <DialogTitle className="text-xl leading-6 font-bold text-black dark:text-white dark:ring-offset-slate-500">
                 {modalTitle}
