@@ -2270,20 +2270,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:3.3.3":
-  version: 3.3.3
-  resolution: "@eslint/eslintrc@npm:3.3.3"
+"@eslint/eslintrc@npm:3.3.4":
+  version: 3.3.4
+  resolution: "@eslint/eslintrc@npm:3.3.4"
   dependencies:
-    ajv: ^6.12.4
+    ajv: ^6.14.0
     debug: ^4.3.2
     espree: ^10.0.1
     globals: ^14.0.0
     ignore: ^5.2.0
     import-fresh: ^3.2.1
     js-yaml: ^4.1.1
-    minimatch: ^3.1.2
+    minimatch: ^3.1.3
     strip-json-comments: ^3.1.1
-  checksum: d1e16e47f1bb29af32defa597eaf84ac0ff8c06760c0a5f4933c604cd9d931d48c89bed96252222f22abac231898a53bc41385a5e6129257f0060b5ec431bdb2
+  checksum: c16df92611b927af454d3ab9b1e003d75ae5a0e91009bdab8487bc37d4eb507adf071bd208857fd397a2c311cff1c28f617e01250078e532ab3ac7f1353cee13
   languageName: node
   linkType: hard
 
@@ -3812,12 +3812,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:25.3.0":
-  version: 25.3.0
-  resolution: "@types/node@npm:25.3.0"
+"@types/node@npm:25.3.1":
+  version: 25.3.1
+  resolution: "@types/node@npm:25.3.1"
   dependencies:
     undici-types: ~7.18.0
-  checksum: 3c2a05f53043fc9d33e6e7b2e09399600e25818362c1e72f15ad542c30f1759cbf721b95ffa6db78a12785bd5431ed1ad57c1a98509832785511f8b648f87add
+  checksum: e073f3abb8be5e1c918e4787a6cc320b00bdb7d9c5dd0c58e32330819eb918d3b20f66060c8d42757e246e14829c3a2396cc305bb28e33b253d0d6b940548e2b
   languageName: node
   linkType: hard
 
@@ -4186,15 +4186,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.12.4":
-  version: 6.12.6
-  resolution: "ajv@npm:6.12.6"
+"ajv@npm:^6.14.0":
+  version: 6.14.0
+  resolution: "ajv@npm:6.14.0"
   dependencies:
     fast-deep-equal: ^3.1.1
     fast-json-stable-stringify: ^2.0.0
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
-  checksum: 874972efe5c4202ab0a68379481fbd3d1b5d0a7bd6d3cc21d40d3536ebff3352a2a1fabb632d4fd2cc7fe4cbdcd5ed6782084c9bbf7f32a1536d18f9da5007d4
+  checksum: 7bb3ea97bb8af52521589079f427e799b6561acaa94f50e13410cb87588c51df8db1afe1157b3e48f1a829269adaa11116e0c2cafe2b998add1523789809a3c5
   languageName: node
   linkType: hard
 
@@ -6358,9 +6358,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.0.1":
-  version: 10.0.1
-  resolution: "eslint@npm:10.0.1"
+"eslint@npm:10.0.2":
+  version: 10.0.2
+  resolution: "eslint@npm:10.0.2"
   dependencies:
     "@eslint-community/eslint-utils": ^4.8.0
     "@eslint-community/regexpp": ^4.12.2
@@ -6372,7 +6372,7 @@ __metadata:
     "@humanwhocodes/module-importer": ^1.0.1
     "@humanwhocodes/retry": ^0.4.2
     "@types/estree": ^1.0.6
-    ajv: ^6.12.4
+    ajv: ^6.14.0
     cross-spawn: ^7.0.6
     debug: ^4.3.2
     escape-string-regexp: ^4.0.0
@@ -6399,7 +6399,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 9543c15fa6ebe4339d5656eda6d7d12e7078ebcaa712499e468f7adbeb528d33477b4f427560aedf4c68baf012e67f158401fab590e6d8374b62ded6c2593124
+  checksum: e6e52feb0a48860c81470ed50f811916568f0256cb511fbe1eaff568a8957d43b0358f2e6b5c5a23df62d409d3ae021c8247878613dcf58226cb12a1493266fa
   languageName: node
   linkType: hard
 
@@ -9456,6 +9456,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^3.1.3":
+  version: 3.1.5
+  resolution: "minimatch@npm:3.1.5"
+  dependencies:
+    brace-expansion: ^1.1.7
+  checksum: 47ef6f412c08be045a7291d11b1c40777925accf7252dc6d3caa39b1bfbb3a7ea390ba7aba464d762d783265c644143d2c8a204e6b5763145024d52ee65a1941
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^9.0.4":
   version: 9.0.4
   resolution: "minimatch@npm:9.0.4"
@@ -10262,9 +10271,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-pdf@npm:10.4.0":
-  version: 10.4.0
-  resolution: "react-pdf@npm:10.4.0"
+"react-pdf@npm:10.4.1":
+  version: 10.4.1
+  resolution: "react-pdf@npm:10.4.1"
   dependencies:
     clsx: ^2.0.0
     dequal: ^2.0.3
@@ -10281,7 +10290,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: ad56a05613bd55af20b2fd4823238709c14b3c16ae8b15be3242968b5d9faaf4652d6871cdf7474ebf919ed82d7c4264ba3de972f0c678db84fba9a9f67277bd
+  checksum: 9d5ac910fcbb6be7e2916d28b7c3427ddb2b8e197ca9708c4996b571138e61ea1a80541711610960631dba47609b4c7a69cbb130a665d8fb71acd4939511aa46
   languageName: node
   linkType: hard
 
@@ -11053,7 +11062,7 @@ __metadata:
     "@content-collections/core": 0.14.1
     "@content-collections/mdx": 0.2.2
     "@content-collections/next": 0.2.11
-    "@eslint/eslintrc": 3.3.3
+    "@eslint/eslintrc": 3.3.4
     "@eslint/js": 10.0.1
     "@getbrevo/brevo": 4.0.1
     "@giscus/react": 3.1.0
@@ -11066,13 +11075,13 @@ __metadata:
     "@tailwindcss/postcss": 4.2.1
     "@tailwindcss/typography": 0.5.19
     "@types/mdx": 2.0.13
-    "@types/node": 25.3.0
+    "@types/node": 25.3.1
     "@types/react": 19.2.14
     "@typescript-eslint/eslint-plugin": 8.56.1
     "@typescript-eslint/parser": 8.56.1
     cross-env: 10.1.0
     esbuild: 0.27.3
-    eslint: 10.0.1
+    eslint: 10.0.2
     eslint-config-next: 16.1.6
     eslint-config-prettier: 10.1.8
     eslint-plugin-prettier: 5.5.5
@@ -11091,7 +11100,7 @@ __metadata:
     probe-image-size: 7.2.3
     react: 19.2.4
     react-dom: 19.2.4
-    react-pdf: 10.4.0
+    react-pdf: 10.4.1
     reading-time: 1.5.0
     rehype-autolink-headings: 7.1.0
     rehype-citation: 2.3.2
