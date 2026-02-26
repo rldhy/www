@@ -1,0 +1,76 @@
+---
+title: 'Protecting Contact and Résumé Flows with hCaptcha in Next.js'
+date: '2026-02-26'
+lastModified: '2026-02-26'
+tags: [next-js, hcaptcha, recaptcha, security, privacy, contact, resume, node-js]
+draft: false
+summary: 'How I used hCaptcha to protect both my contact form and résumé viewer, with server-side token verification and a privacy-first comparison to reCAPTCHA'
+images: []
+---
+
+I wanted to protect two high-abuse surfaces on my site:
+- `/contact` (to reduce spam submissions)
+- `/resume` (to prevent automated scraping/downloading)
+
+I implemented hCaptcha on both flows using the same pattern: client-side challenge + server-side token verification.
+
+## Shared hCaptcha Service
+
+I centralized verification in `services/hcaptcha/hcaptcha-service.ts`.
+
+It:
+- Reads `HCAPTCHA_SECRET_KEY` from environment variables
+- Sends `POST https://hcaptcha.com/siteverify`
+- Returns `true` only when `captchaValidation.success` is true
+
+That gives both API routes one reusable verification layer.
+
+## Contact Form Protection
+
+In `components/GetInTouch.tsx`, the form:
+- Tracks `hcaptchaToken` and `hcaptchaSubmited` in component state
+- Requires required fields (`fullName`, `email`, `message`)
+- Disables submit until captcha is solved
+- Sends the token with form data to `/api/contact`
+
+On the server, `app/api/contact/route.ts`:
+- Verifies `body.hcaptchaToken`
+- Returns `401` if verification fails
+- Only sends email if captcha validation passes
+
+This prevents bots from directly abusing the email endpoint without solving a valid challenge first.
+
+## Résumé Viewer Protection
+
+In `components/ProtectedResumeViewer.tsx`:
+- The PDF is hidden until captcha verification succeeds
+- `onVerify` requests `/api/resume?hcaptchaToken=...`
+- The response PDF is loaded as a `Blob` and rendered with `PdfViewer`
+
+On the server, `app/api/resume/route.ts`:
+- Rejects missing token (`400`)
+- Verifies token with `HCaptchaService`
+- Rejects invalid token (`401`)
+- Returns the PDF with correct content headers only after verification
+
+This makes automated bulk scraping harder while keeping access simple for real users.
+
+## Why I Picked hCaptcha Over Google reCAPTCHA
+
+Both hCaptcha and reCAPTCHA are solid anti-bot tools, but I preferred hCaptcha for privacy reasons.
+
+My practical comparison:
+- hCaptcha: More privacy-first positioning and less tied to ad-tech ecosystems
+- reCAPTCHA: Very effective, but part of Google’s broader data ecosystem
+
+For my portfolio, I wanted bot protection without relying on a provider that many users associate with extensive tracking infrastructure. hCaptcha gave me a better privacy posture for site visitors while still giving me straightforward integration in React + Next.js.
+
+## Final Notes
+
+This setup gave me a clean, reusable security approach:
+- One verification service
+- Consistent API-side enforcement
+- Better spam resistance on contact
+- Better protection for résumé assets
+
+If you are building a personal site, this pattern is easy to scale to other endpoints too (newsletter signup, download links, quote forms, and so on).
