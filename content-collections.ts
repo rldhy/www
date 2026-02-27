@@ -175,5 +175,5 @@ const authors = defineCollection({
 }) as unknown as AnyCollection
 
 export default defineConfig({
-  collections: [blogs, authors],
+  content: [blogs, authors],
 })
