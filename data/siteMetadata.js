@@ -5,7 +5,7 @@ const siteMetadata = {
   description: 'Sharing my projects, hobbies, and interests.',
   footerTitle: 'RLODHIYA.DEV',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'dark', // system, dark or light
   siteUrl: 'https://rlodhiya.dev',
   siteRepo: 'https://github.com/rldhy/www',
   siteLogo: '/static/images/logo.png',
