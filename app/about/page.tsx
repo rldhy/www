@@ -1,4 +1,5 @@
 import { Authors, allAuthors } from 'content-collections'
+import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from '@/components/core/mdx-components'
 import AuthorLayout from '@/layouts/AuthorLayout'
 import { coreContent } from 'utils/content'
@@ -13,7 +14,7 @@ export default function Page() {
   return (
     <>
       <AuthorLayout content={mainContent}>
-        <MDXLayoutRenderer code={author.body.code} />
+        <MDXLayoutRenderer code={author.body.code} components={components} />
       </AuthorLayout>
     </>
   )
