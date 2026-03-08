@@ -2398,18 +2398,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@giscus/react@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@giscus/react@npm:3.1.0"
-  dependencies:
-    giscus: ^1.6.0
-  peerDependencies:
-    react: ^16 || ^17 || ^18 || ^19
-    react-dom: ^16 || ^17 || ^18 || ^19
-  checksum: 7dbbf62ba94b7fd229d5f5f93c4452d2d349c544b434411573152d8d17e3b15f50cd6c7fc06ebbb8ae778650753e4a3432d8151be1c065adfa36602d2b3e5ee1
-  languageName: node
-  linkType: hard
-
 "@hcaptcha/react-hcaptcha@npm:2.0.2":
   version: 2.0.2
   resolution: "@hcaptcha/react-hcaptcha@npm:2.0.2"
@@ -2808,22 +2796,6 @@ __metadata:
     "@jridgewell/resolve-uri": ^3.1.0
     "@jridgewell/sourcemap-codec": ^1.4.14
   checksum: af8fda2431348ad507fbddf8e25f5d08c79ecc94594061ce402cf41bc5aba1a7b3e59bf0fd70a619b35f33983a3f488ceeba8faf56bff784f98bb5394a8b7d47
-  languageName: node
-  linkType: hard
-
-"@lit-labs/ssr-dom-shim@npm:^1.5.0":
-  version: 1.5.1
-  resolution: "@lit-labs/ssr-dom-shim@npm:1.5.1"
-  checksum: 22c404c4813bceccaba2b6ee533251b58a2f4e9669507fcbd021120c66fbc2ae1daea4d1e31a76e450fa6a16942471579c4d1e256aa65ec1172d5aac0c0197e1
-  languageName: node
-  linkType: hard
-
-"@lit/reactive-element@npm:^2.1.0":
-  version: 2.1.2
-  resolution: "@lit/reactive-element@npm:2.1.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.5.0
-  checksum: e0ed931b9cd50ce9521db7da528c00e1a8b912a66ac7b0f43554992e43cc7c20735b34bf99750d86b9256228818835ca2e9bf517653b246c73a6aac92cdd894c
   languageName: node
   linkType: hard
 
@@ -3850,13 +3822,6 @@ __metadata:
   version: 1.20.6
   resolution: "@types/resolve@npm:1.20.6"
   checksum: dc35f5517606b6687cd971c0281ac58bdee2c50c051b030f04647d3991688be2259c304ee97e5b5d4b9936072c36767eb5933b54611a407d6557972bb6fea4f6
-  languageName: node
-  linkType: hard
-
-"@types/trusted-types@npm:^2.0.2":
-  version: 2.0.7
-  resolution: "@types/trusted-types@npm:2.0.7"
-  checksum: 8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
   languageName: node
   linkType: hard
 
@@ -6943,15 +6908,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"giscus@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "giscus@npm:1.6.0"
-  dependencies:
-    lit: ^3.2.1
-  checksum: 1f5b405a9189234987982929e1f9d004e1f942d5740a64dd8de3562291ec181de60b5fd276da1eeecc050f5b8a2f73036246a03135b05d1b6470d85d66e3f8fa
-  languageName: node
-  linkType: hard
-
 "github-slugger@npm:2.0.0, github-slugger@npm:^2.0.0":
   version: 2.0.0
   resolution: "github-slugger@npm:2.0.0"
@@ -8492,37 +8448,6 @@ __metadata:
     rfdc: ^1.4.1
     wrap-ansi: ^9.0.0
   checksum: 64ef0dcd6f69e131f5699f584c13096d828a747472d4a18e68a9418848a54aef86bf953bf4a8a03a3dff24dacf771fab919dad59dce115244308a06d147acbfa
-  languageName: node
-  linkType: hard
-
-"lit-element@npm:^4.2.0":
-  version: 4.2.2
-  resolution: "lit-element@npm:4.2.2"
-  dependencies:
-    "@lit-labs/ssr-dom-shim": ^1.5.0
-    "@lit/reactive-element": ^2.1.0
-    lit-html: ^3.3.0
-  checksum: 554254b87c7a5b486351a4aecb78919f3665d91de0466c85041572e37f94dd4887f7a4765a90a59e3933f1a54fcf68c20a411319bf06c3e8dce6cfac8de4ca30
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^3.3.0":
-  version: 3.3.2
-  resolution: "lit-html@npm:3.3.2"
-  dependencies:
-    "@types/trusted-types": ^2.0.2
-  checksum: 7fe23502ca77e1f29a421507ee4f104a53226d540a11d0f1b16fa4868c962c52b9595064d28bfbc4bd910adf50b3b01d63f54ddb19a1342d572d1adf1b2ffae2
-  languageName: node
-  linkType: hard
-
-"lit@npm:^3.2.1":
-  version: 3.3.2
-  resolution: "lit@npm:3.3.2"
-  dependencies:
-    "@lit/reactive-element": ^2.1.0
-    lit-element: ^4.2.0
-    lit-html: ^3.3.0
-  checksum: 2136d4beac0b8be821d9ce3c4a81c9300051e1d10031f8fbe5f690faecd02efaed70e0a12eaa2694599e7fbf8888693c1d190cc0e5fe2a1d96bcbf5b01d6a042
   languageName: node
   linkType: hard
 
@@ -11068,7 +10993,6 @@ __metadata:
     "@eslint/eslintrc": 3.3.5
     "@eslint/js": 10.0.1
     "@getbrevo/brevo": 4.0.1
-    "@giscus/react": 3.1.0
     "@hcaptcha/react-hcaptcha": 2.0.2
     "@hcaptcha/types": 1.2.0
     "@headlessui/react": 2.2.9
