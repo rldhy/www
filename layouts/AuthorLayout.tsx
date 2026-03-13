@@ -64,12 +64,14 @@ export default function AuthorLayout({ children, content }: Props) {
             </div>
             {buyMeCoffee && (
               <div className="mt-5 flex items-center justify-center">
-                <Link href={buyMeCoffee} className="hover:scale-110">
+                <Link href={buyMeCoffee} className="inline-block">
                   <Image
                     src="/static/images/buy-me-coffee.png"
                     alt="Buy Me A Coffee"
                     width={163}
                     height={45}
+                    className="transition-transform duration-100 hover:scale-110"
+                    style={{ width: '163px', height: 'auto' }}
                   />
                 </Link>
               </div>
