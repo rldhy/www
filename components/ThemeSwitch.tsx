@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import {
   Menu,
@@ -55,8 +55,17 @@ const Monitor = () => (
 
 const ThemeSwitch = () => {
   const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   function getThemeIcon() {
+    if (!mounted) {
+      return <Monitor />
+    }
+
     if (theme === 'system') {
       return <Monitor />
     } else if (resolvedTheme === 'light' && theme !== 'system') {
