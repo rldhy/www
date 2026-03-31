@@ -47,7 +47,7 @@
     "remark": "15.0.1",
     "remark-gfm": "4.0.1",
     "remark-math": "6.0.0",
-    "resend": "6.9.4",
+    "resend": "6.10.0",
     "tailwindcss": "4.2.2",
     "unist-util-visit": "5.1.0"
   },
@@ -62,8 +62,8 @@
     "@types/mdx": "2.0.13",
     "@types/node": "25.5.0",
     "@types/react": "19.2.14",
-    "@typescript-eslint/eslint-plugin": "8.57.2",
-    "@typescript-eslint/parser": "8.57.2",
+    "@typescript-eslint/eslint-plugin": "8.58.0",
+    "@typescript-eslint/parser": "8.58.0",
     "cross-env": "10.1.0",
     "eslint": "10.1.0",
     "eslint-config-next": "16.2.1",
@@ -74,7 +74,7 @@
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "typescript": "6.0.2",
-    "typescript-eslint": "8.57.2",
+    "typescript-eslint": "8.58.0",
     "yarn-upgrade-all": "0.7.5",
     "zod": "4.3.6"
   },
