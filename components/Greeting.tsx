@@ -15,6 +15,10 @@ function getFlagHiddenMap(showFlags: Set<string>): Map<string, boolean> {
   return map
 }
 
+function getAvailableGreetingIndices(excludeIndex: number): number[] {
+  return GREETINGS.map((_, index) => index).filter((index) => index !== excludeIndex)
+}
+
 export default function Greeting({ showFlags }) {
   const [greetingIndex, setGreetingIndex] = useState<number>(0)
   const [greeting, setGreeting] = useState<GreetingInfo>(GREETINGS[0])
@@ -23,12 +27,9 @@ export default function Greeting({ showFlags }) {
   )
   const [isShowing, setIsShowing] = useState<boolean>(true)
   const [isStarted, setIsStarted] = useState<boolean>(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-
-  interface FilteredGreeting {
-    index: number
-    greeting: GreetingInfo
-  }
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const availableGreetingIndices = useRef<number[]>(getAvailableGreetingIndices(0))
 
   function isFlagHidden(flag: string): boolean {
     if (showFlags === false) {
@@ -38,23 +39,23 @@ export default function Greeting({ showFlags }) {
   }
 
   function nextGreeting() {
-    const indices: FilteredGreeting[] = []
-    GREETINGS.forEach((v, i) => {
-      if (i !== greetingIndex) {
-        indices.push({ index: i, greeting: v })
-      }
-    })
-    const randomIndex = Math.floor(Math.random() * indices.length)
-    const next = indices[randomIndex]
-    setGreetingIndex(next.index)
-    setGreeting(next.greeting)
-    setFlagsHiddenMap(getFlagHiddenMap(new Set(next.greeting.flags)))
+    if (availableGreetingIndices.current.length === 0) {
+      availableGreetingIndices.current = getAvailableGreetingIndices(greetingIndex)
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableGreetingIndices.current.length)
+    const [nextGreetingIndex] = availableGreetingIndices.current.splice(randomIndex, 1)
+    const nextGreeting = GREETINGS[nextGreetingIndex]
+
+    setGreetingIndex(nextGreetingIndex)
+    setGreeting(nextGreeting)
+    setFlagsHiddenMap(getFlagHiddenMap(new Set(nextGreeting.flags)))
   }
 
   function switchGreeting() {
     if (isShowing) {
       setIsShowing(false)
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         nextGreeting()
         setIsShowing(true)
       }, 100)
@@ -92,9 +93,14 @@ export default function Greeting({ showFlags }) {
   }
 
   useEffect(() => {
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       startAnimation()
     }, 200)
+
+    return () => {
+      clearInterval(intervalRef.current ?? undefined)
+      clearTimeout(timeoutRef.current ?? undefined)
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
