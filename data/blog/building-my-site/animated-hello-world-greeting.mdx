@@ -1,0 +1,78 @@
+---
+title: 'Animated Hello World Greeting'
+date: '2026-04-10'
+lastModified: '2026-04-10'
+tags: [next-js, react, typescript, animation, tailwind, homepage, languages]
+draft: false
+summary: 'A breakdown of the animated Hello World component on my homepage.'
+images: []
+---
+
+One of my favorite small details on the homepage is the animated greeting component. It starts with a simple `Hello World!`, then rotates through translations from different languages while showing the corresponding country flags.
+
+It is a small detail, but it does a lot for the page:
+- Makes the homepage feel less static
+- Adds a bit of personality
+- Gives the reader something interactive and interesting
+
+The implementation lives in `components/Greeting.tsx`, and the data that powers it lives in `data/greetings.ts`.
+
+## Keeping the content separate from the UI
+
+I wanted the component logic to stay simple, so I split the actual greeting content into a data file.
+
+Each greeting entry has:
+- A `language`
+- A translated `message`
+- A list of matching `flags`
+
+That means the component does not need to know anything about specific languages ahead of time. It just reads the current greeting object and renders what it gets.
+
+The flags are also defined in the same data layer, with a short code and country name. That makes it easy to map a greeting like French or Arabic to one or more countries without hardcoding flag behavior directly in the component.
+
+## How the animation works
+
+The component keeps track of a few pieces of state:
+- The current greeting index
+- The current greeting object
+- Which flags should be visible
+- Whether the text is currently visible for transition purposes
+- Whether the animation is running
+
+On initial load, the animation starts automatically after a very short delay. From there, a timer advances the greeting every 2.5 seconds.
+
+Instead of cycling strictly from top to bottom, the component keeps a list of greeting indices that are still eligible to show. Every transition randomly picks one index from that pool and removes it once it has been used.
+
+Once that pool is empty, it is rebuilt from the full greeting list while excluding the greeting that is currently visible. That keeps the animation feeling varied, ensures the same greeting does not immediately repeat when a cycle resets, and avoids the state-mutation issues from an earlier version of the component.
+
+To make the text change feel smoother, the component briefly hides the current greeting, swaps in the next one after a short timeout, and then fades it back in using `Transition` from `@headlessui/react`.
+
+## Matching greetings to flags
+
+The flag behavior is driven by a visibility map. For every available flag, the component decides whether it should be hidden for the current greeting.
+
+That gives me a flexible setup:
+- English can show multiple flags like the US, UK, Canada, and Australia
+- Portuguese can show both Portugal and Brazil
+- Single-country languages can still map cleanly to one flag
+
+The component also supports a `showFlags` prop. If that is disabled, all flags stay hidden and only the text animation remains visible.
+
+## Manual controls
+
+I did not want the animation to be completely automatic with no user control, so the component includes a small play/pause toggle.
+
+That button:
+- Starts the interval if the animation is stopped
+- Clears the interval if it is running
+- Prevents multiple timers from stacking on top of each other
+
+It is a tiny feature, but it makes the component feel more deliberate and user-friendly.
+
+## Final thoughts
+
+The animated greeting is one of those features that is easy to overlook in the codebase, but it adds a lot to the first impression of the site. It takes a familiar developer phrase, gives it some motion, and turns it into a small personal signature on the homepage.
+
+The tech industry is also very diverse, and I wanted to share a greeting in a way that would feel familiar to anyone reading the page. The selection of languages and countries reflects many of the different people I have known throughout my life, which makes the component feel personal in a way that goes beyond animation alone. I hope to continue growing this list!
+
+For a personal website, that is exactly the kind of detail I want: simple, playful, thoughtful, and easy to maintain. Let me know if I should add a greeting for your language(s)!
