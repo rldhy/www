@@ -16,19 +16,24 @@ export const GREETINGS: GreetingInfo[] = [
     flags: ['us', 'gb', 'ca', 'au'],
   },
   {
-    language: 'German',
-    message: 'Hallo Welt!',
-    flags: ['de', 'at', 'ch'],
-  },
-  {
     language: 'French',
     message: 'Bonjour le monde!',
     flags: ['fr', 'ca', 'ch'],
   },
   {
+    language: 'Inuktut',
+    message: 'ᕼᐊᓘ ᓄᓇᕐᔪᐊᖅ!',
+    flags: ['ca', 'us', 'gl'],
+  },
+  {
+    language: 'German',
+    message: 'Hallo Welt!',
+    flags: ['de', 'at', 'ch'],
+  },
+  {
     language: 'Spanish',
     message: '¡Hola Mundo!',
-    flags: ['es', 'mx', 'co'],
+    flags: ['es', 'mx', 'us', 'co'],
   },
   {
     language: 'Portuguese',
@@ -78,7 +83,7 @@ export const GREETINGS: GreetingInfo[] = [
   {
     language: 'Danish',
     message: 'Hej Verden!',
-    flags: ['dk'],
+    flags: ['dk', 'gl'],
   },
   {
     language: 'Greek',
@@ -113,7 +118,12 @@ export const GREETINGS: GreetingInfo[] = [
   {
     language: 'Tamil',
     message: 'வணக்கம் உலகம்!',
-    flags: ['in'],
+    flags: ['in', 'lk', 'my', 'sg'],
+  },
+  {
+    language: 'Sinhala',
+    message: 'හෙලෝ වර්ල්ඩ්!',
+    flags: ['lk'],
   },
   {
     language: 'Thai',
@@ -124,6 +134,11 @@ export const GREETINGS: GreetingInfo[] = [
     language: 'Arabic',
     message: '!مرحبا بالعالم',
     flags: ['eg', 'ae', 'jo'],
+  },
+  {
+    language: 'Farsi',
+    message: 'سلام جهان!',
+    flags: ['pr'],
   },
   {
     language: 'Turkish',
@@ -148,7 +163,7 @@ export const GREETINGS: GreetingInfo[] = [
   {
     language: 'Chinese',
     message: '你好 世界!',
-    flags: ['cn', 'tw'],
+    flags: ['cn', 'tw', 'sg'],
   },
   {
     language: 'Vietnamese',
@@ -175,6 +190,8 @@ export const FLAGS: FlagInfo[] = [
   { name: 'es', countryName: 'Spain' },
   { name: 'mx', countryName: 'Mexico' },
   { name: 'co', countryName: 'Colombia' },
+  { name: 'ar', countryName: 'Argentina' },
+  { name: 'cl', countryName: 'Chile' },
 
   { name: 'pt', countryName: 'Portugal' },
   { name: 'br', countryName: 'Brazil' },
@@ -188,6 +205,7 @@ export const FLAGS: FlagInfo[] = [
 
   { name: 'cz', countryName: 'Czechia' },
   { name: 'dk', countryName: 'Denmark' },
+  { name: 'gl', countryName: 'Greenland' },
   { name: 'fi', countryName: 'Finland' },
   { name: 'gr', countryName: 'Greece' },
   { name: 'hr', countryName: 'Croatia' },
@@ -202,6 +220,11 @@ export const FLAGS: FlagInfo[] = [
   { name: 'ru', countryName: 'Russia' },
   { name: 'se', countryName: 'Sweden' },
   { name: 'th', countryName: 'Thailand' },
+  { name: 'ir', countryName: 'Iran' },
+  { name: 'pr', countryName: 'Persia' },
+  { name: 'lk', countryName: 'Sri Lanka' },
+  { name: 'sg', countryName: 'Singapore' },
+  { name: 'my', countryName: 'Malaysia' },
   { name: 'tr', countryName: 'Turkey' },
   { name: 'ua', countryName: 'Ukraine' },
   { name: 'vn', countryName: 'Vietnam' },
