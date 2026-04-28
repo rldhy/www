@@ -137,7 +137,7 @@ export const GREETINGS: GreetingInfo[] = [
   },
   {
     language: 'Farsi',
-    message: 'سلام جهان!',
+    message: '!سلام جهان',
     flags: ['pr'],
   },
   {
