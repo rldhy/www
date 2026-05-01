@@ -6314,9 +6314,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.2.1":
-  version: 10.2.1
-  resolution: "eslint@npm:10.2.1"
+"eslint@npm:10.3.0":
+  version: 10.3.0
+  resolution: "eslint@npm:10.3.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.8.0
     "@eslint-community/regexpp": ^4.12.2
@@ -6355,7 +6355,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: cf17c9854f5f6dd9950d9fc89e993365b1176d94c683c913ec174ee443e8dc77c1b28758dca4d14396bfca384bc52b55af9a6e6aced9de946b2a85509f321023
+  checksum: 0bf8869fc5cf6e903e9e4b9cc7955fcc7264c8f4714742cc899a3892bb36ca252eb18dfbe8356fdb9c82d61e09f35da0b53cdb94c8a3b28df442425b42034de4
   languageName: node
   linkType: hard
 
@@ -6913,10 +6913,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.5.0":
-  version: 17.5.0
-  resolution: "globals@npm:17.5.0"
-  checksum: 934130da24e193cb7c6f3011f68818be869d30250b3ec2076dae712e0ce7e95c9d5c943a780e92fe99ecc86ed8be8b014e497354741782b78c21613c85e8a2bd
+"globals@npm:17.6.0":
+  version: 17.6.0
+  resolution: "globals@npm:17.6.0"
+  checksum: 4f4e95e3c86d65653a2a1450968454f46eba648be1f14eb25ba460323486eefc930b545a0d5b01618719b424966d7d312095c5bee7c74c4c2af3abfc95582e4f
   languageName: node
   linkType: hard
 
@@ -9989,14 +9989,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.12":
-  version: 8.5.12
-  resolution: "postcss@npm:8.5.12"
+"postcss@npm:8.5.13":
+  version: 8.5.13
+  resolution: "postcss@npm:8.5.13"
   dependencies:
     nanoid: ^3.3.11
     picocolors: ^1.1.1
     source-map-js: ^1.2.1
-  checksum: e11818908d9f1693438bd7c6e3af99431552f5c9b3f400ebe76af3f25bd1b1efb26bc4c13533f3dcff45540a66ad4e84c62e06491f88003bbfa4ef35b6175f55
+  checksum: f02410c109514c39cfae480359d6221627ff22a0ebbb257bacddee4b65028bfcb5a067b874e0c8c661403ef021bbbfaea7082c81fc4c36dd593991506976fda1
   languageName: node
   linkType: hard
 
@@ -10971,12 +10971,12 @@ __metadata:
     "@typescript-eslint/parser": 8.59.1
     cross-env: 10.1.0
     esbuild: 0.28.0
-    eslint: 10.2.1
+    eslint: 10.3.0
     eslint-config-next: 16.2.4
     eslint-config-prettier: 10.1.8
     eslint-plugin-prettier: 5.5.5
     github-slugger: 2.0.0
-    globals: 17.5.0
+    globals: 17.6.0
     gray-matter: 4.0.3
     image-size: 2.0.2
     kbar: 0.1.0-beta.48
@@ -10984,7 +10984,7 @@ __metadata:
     next: 16.2.4
     next-themes: 0.4.6
     node-cache: 5.1.2
-    postcss: 8.5.12
+    postcss: 8.5.13
     prettier: 3.8.3
     prettier-plugin-tailwindcss: 0.8.0
     probe-image-size: 7.2.3
@@ -11007,7 +11007,7 @@ __metadata:
     typescript-eslint: 8.59.1
     unist-util-visit: 5.1.0
     yarn-upgrade-all: 0.8.1
-    zod: 4.3.6
+    zod: 4.4.1
   languageName: unknown
   linkType: soft
 
@@ -12726,10 +12726,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.3.6":
-  version: 4.3.6
-  resolution: "zod@npm:4.3.6"
-  checksum: 19cec761b46bae4b6e7e861ea740f3f248e50a6671825afc8a5758e27b35d6f20ccde9942422fd5cf6f8b697f18bd05ef8bb33f5f2db112ab25cc628de2fae47
+"zod@npm:4.4.1":
+  version: 4.4.1
+  resolution: "zod@npm:4.4.1"
+  checksum: 366cb53fce7c234c5050ec39149dc94d8301eaf5a186f4c665e28e31178cc6a1f2aa7a276f91eb4eb29f49da03874e5c4e8443d607ebfefbe47f5a529d25693e
   languageName: node
   linkType: hard
 
