@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
-import { formatDate } from 'utils/formatDate'
+import { formatDate } from 'utils/content/formatDate'
 import { CoreContent } from 'utils/content'
 import type { Blog } from 'content-collections'
 import Link from '@/components/Link'

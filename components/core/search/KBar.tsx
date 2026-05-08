@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation.js'
 import { KBarModal } from './KBarModal'
 import { CoreContent } from '../../../utils/content'
 import type { Blog } from 'content-collections'
-import { formatDate } from '../../../utils/formatDate'
+import { formatDate } from '../../../utils/content/formatDate'
 
 export interface KBarSearchProps {
   searchDocumentsPath: string | false

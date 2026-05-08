@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { formatDate } from 'utils/formatDate'
+import { formatDate } from 'utils/content/formatDate'
 import { CoreContent } from 'utils/content'
 import type { Blog } from 'content-collections'
 import Link from '@/components/Link'

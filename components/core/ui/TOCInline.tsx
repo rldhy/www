@@ -1,4 +1,4 @@
-import { Toc, TocItem } from '../../../utils/mdx-plugins/remark-toc-headings'
+import { Toc, TocItem } from '../../../utils/content/mdx-plugins/remark-toc-headings'
 
 export interface TOCInlineProps {
   toc: Toc
@@ -104,7 +104,7 @@ const TOCInline = ({
     <>
       {asDisclosure ? (
         <details open={!collapse}>
-          <summary className="ml-6 pb-2 pt-2 text-xl font-bold">Table of Contents</summary>
+          <summary className="ml-6 pt-2 pb-2 text-xl font-bold">Table of Contents</summary>
           <div className="ml-6">{createList(nestedList)}</div>
         </details>
       ) : (

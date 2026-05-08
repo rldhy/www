@@ -1,6 +1,7 @@
 import ResendService from './resend/resend-service'
 import BrevoService from './brevo/brevo-service'
 import type { GetInTouchArgs } from './message-builder'
+import logger from '../../utils/logger/logger'
 
 export interface EmailProvider {
   sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean>
@@ -24,10 +25,13 @@ class EmailService implements EmailProvider {
       default:
         throw new Error(`Unsupported EMAIL_PROVIDER: ${providerName}`)
     }
+
+    logger.debug({ service: 'email', provider: providerName, emailSendDisabled: this.disableEmailSend }, 'Email service initialized')
   }
 
   async sendGetInTouchMessage(args: GetInTouchArgs): Promise<boolean> {
     if (this.disableEmailSend) {
+      logger.info({ service: 'email' }, 'Email send skipped because DISABLE_EMAIL_SEND is enabled')
       return true
     }
     return this.provider.sendGetInTouchMessage(args)

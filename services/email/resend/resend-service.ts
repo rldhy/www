@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 import { buildGetInTouchHtml, GetInTouchArgs } from '../message-builder'
 import { EmailProvider } from '../email-service'
+import logger from '../../../utils/logger/logger'
 
 class ResendService implements EmailProvider {
   private readonly resend: Resend
@@ -25,14 +26,14 @@ class ResendService implements EmailProvider {
       })
 
       if (error) {
-        console.error('Resend error:', error)
+        logger.error({ err: error, service: 'email', provider: 'resend' }, 'Resend email send failed')
         return false
       }
 
-      console.log('Resend email sent:', data?.id)
+      logger.info({ service: 'email', provider: 'resend', messageId: data?.id }, 'Resend email sent')
       return true
     } catch (err) {
-      console.error('Error sending with Resend:', err)
+      logger.error({ err, service: 'email', provider: 'resend' }, 'Error sending email with Resend')
       return false
     }
   }
