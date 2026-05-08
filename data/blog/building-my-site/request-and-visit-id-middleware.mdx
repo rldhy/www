@@ -1,10 +1,10 @@
 ---
 title: 'Adding Request and Visit IDs with Next.js Proxy Middleware'
-date: '2026-05-08'
-lastModified: '2026-05-08'
+date: '2026-05-07'
+lastModified: '2026-05-07'
 tags: [next-js, middleware, proxy, logging, observability, uuid]
 draft: false
-summary: 'How I used Next.js proxy middleware to add per-request IDs, week-long visit IDs, and a composable middleware context'
+summary: 'Using the Next.js proxy middleware pattern to add per-request IDs, unique visit IDs, and a composable middleware context'
 images: []
 ---
 
@@ -13,7 +13,7 @@ Once I added structured server logging, I needed reliable IDs to connect related
 I wanted two different identifiers:
 
 - `requestId`: unique for each request
-- `visitId`: stable for a visitor across page loads for a short period
+- `visitId`: stable for a visitor across page loads for aLibrary short period
 
 Those IDs have different jobs, so I kept them separate.
 

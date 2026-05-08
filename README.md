@@ -6,7 +6,7 @@
 
 Welcome to the repo for the [https://rlodhiya.dev](https://www.rlodhiya.dev) website! 
 
-This repository was forked from [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog), created by [Timothy Lin](https://www.timlrx.com) ([timlrx](https://github.com/timlrx))
+This repository was built using the [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) template, created by [Timothy Lin](https://www.timlrx.com) ([timlrx](https://github.com/timlrx))
 
 ## Installation
 

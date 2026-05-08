@@ -1,10 +1,10 @@
 ---
 title: 'Migrating from Brevo to Resend in a Next.js App'
 date: '2025-08-07'
-lastModified: '2025-08-14'
+lastModified: '2026-05-08'
 tags: [next-js, email, resend, brevo]
 draft: false
-summary: 'Why and how I replaced Brevo with Resend for sending email in my portfolio project'
+summary: 'How and why I replaced Brevo with Resend for sending email in my portfolio project'
 images: []
 ---
 
@@ -15,7 +15,7 @@ Here’s how I made the switch.
 ## 📦 Installing Resend
 
 ```bash
-npm install resend
+yarn add resend
 ```
 
 ## 🛠️ Brevo: What I Had Before
@@ -74,3 +74,39 @@ await service.sendGetInTouchMessage(args)
 Resend feels tailor-made for modern React and serverless projects. Type-safe, clean, and no extra ceremony. It also plays nicely with my Vercel deployment.
 
 It's looking good so far! Try it out: [Contact Me](/contact)
+
+## May 2026 Update: Resend v6 Library
+
+Since this migration, the Resend Node.js library has moved to [`v6.12.3`](https://github.com/resend/resend-node/releases/tag/v6.12.3). My original contact-form implementation still uses the same core pattern: instantiate `Resend`, then call `resend.emails.send(...)`.
+
+```ts
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+
+const { data, error } = await resend.emails.send({
+  from: 'RL-System <system@rlodhiya.dev>',
+  to: ['hello@rlodhiya.dev'],
+  replyTo: 'reply@rlodhiya.dev',
+  subject: 'Contact Form',
+  html: buildGetInTouchHtml({ fullName, message }),
+})
+
+if (error) {
+  throw error
+}
+
+return data
+```
+
+The notable library updates are mostly maintenance and type improvements:
+
+- Fixed a `payload` typo in contact overload signatures
+- Added the missing `suppressed` webhook event type to the SDK interface
+- Updated the `svix` dependency to address a security advisory
+
+Resend has also added more platform and API capabilities since this post, including [API request logs](https://resend.com/changelog/logs-api), an [official CLI](https://resend.com/changelog/cli), webhook management APIs, sent-email listing, pagination for list endpoints, batch validation modes, batch idempotency keys, and automatic plain-text email generation.
+
+The `EmailService` abstraction made this update smaller than it could have been. The rest of the app still calls `sendGetInTouchMessage(args)`, while the external provider-specific work stays inside the Resend implementation. That kept the library update focused on the boundary where the app talks to Resend instead of forcing contact form or route changes.
+
+The migration approach still holds up: keeping Resend behind a small email service wrapper means I can adopt those newer features without rewriting the original contact-form flow.
