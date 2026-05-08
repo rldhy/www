@@ -13,7 +13,7 @@ async function handler(req: NextRequest) {
     }
 
     const emailService = new EmailService()
-    const sent = emailService.sendGetInTouchMessage({
+    const sent = await emailService.sendGetInTouchMessage({
       fullName: body.fullName,
       email: body.email,
       subject: body.subject,
