@@ -1,0 +1,115 @@
+---
+title: 'Adding Structured Server Logging to My Next.js Site'
+date: '2026-05-08'
+lastModified: '2026-05-08'
+tags: [next-js, logging, pino, observability, node-js]
+draft: false
+summary: 'How I added structured server-side logging with Pino, request-scoped loggers, redaction, and consistent route/service logs in a Next.js app'
+images: []
+---
+
+I wanted better visibility into the server-side parts of this site without adding a full observability platform right away.
+
+The main goals were:
+
+- Replace scattered `console.log` and `console.error` calls
+- Add consistent request metadata to API route logs
+- Avoid logging secrets, hCaptcha tokens, or message contents
+- Keep production logs structured for hosting platforms and log drains
+- Keep local logs readable while developing
+
+I started with the server-side paths that matter most today: the contact API, résumé API, hCaptcha verification, email providers, and file downloading.
+
+## Choosing Pino
+
+I went with [`pino`](https://getpino.io/) for structured logging.
+
+The project now has a small wrapper in `utils/logger/logger.ts` instead of importing Pino directly everywhere. That gives the app one place to configure:
+
+- Log level via `LOG_LEVEL`
+- JSON logs outside development
+- Pretty local logs with `pino-pretty`
+- Redaction for sensitive fields
+
+The logger config uses pretty output only in development:
+
+```ts
+const isDevelopment = process.env.NODE_ENV === 'development'
+
+const logger = pino({
+  level: process.env.LOG_LEVEL ?? (isDevelopment ? 'debug' : 'info'),
+  transport: isDevelopment
+    ? {
+        target: 'pino-pretty',
+      }
+    : undefined,
+})
+```
+
+When `transport` is `undefined`, Pino writes JSON logs to stdout. That is what I want in production because those logs are easier for platforms and log tools to parse.
+
+## Request-Scoped Loggers
+
+The logger wrapper exposes `getRequestLogger(req, route)`.
+
+That returns a Pino child logger with fields that should appear on every log line for that request:
+
+```ts
+return logger.child({
+  requestId: getRequestId(req),
+  visitId: getVisitId(req),
+  route,
+  method: req.method,
+})
+```
+
+This keeps route code small:
+
+```ts
+const requestLogger = getRequestLogger(req, 'contact')
+
+requestLogger.info({ statusCode: 200, durationMs }, 'Contact request completed')
+```
+
+Without a child logger, every log call would need to manually include `requestId`, `visitId`, `route`, and `method`. That gets repetitive quickly and makes it easy to forget correlation fields.
+
+The request and visit IDs are created before the request reaches the route handler. I split that into a separate middleware setup so the logging code only has to read the headers and attach them to child loggers.
+
+## Where Logs Were Added
+
+I replaced server-side console logging in:
+
+- `app/api/contact/route.ts`
+- `app/api/resume/route.ts`
+- `services/hcaptcha/hcaptcha-service.ts`
+- `services/email/email-service.ts`
+- `services/email/resend/resend-service.ts`
+- `services/email/brevo/brevo-service.ts`
+- `services/file/simple-file-downloader.ts`
+
+The API routes log request completion, failures, status codes, and durations. Services log provider-level events like hCaptcha verification, email sending, and file cache hits.
+
+## Redaction
+
+Logging is useful only if it does not leak sensitive data.
+
+The logger redacts common sensitive fields:
+
+- API keys
+- Authorization headers
+- hCaptcha tokens
+- Generic token and secret fields
+
+I also avoided logging contact form message bodies, captcha tokens, and full secret-bearing values in the first place. Redaction is a safety net, not the primary privacy strategy.
+
+## Final Shape
+
+The end result is a lightweight logging setup that gives me:
+
+- Structured server logs
+- Request-level correlation with `requestId`
+- Visitor-level correlation with `visitId`
+- Safer logging defaults
+- Cleaner route and service code
+
+This is not a full observability stack yet, but it is a solid base. If I later add log shipping, tracing, or metrics, the request and visit identifiers are already in place.

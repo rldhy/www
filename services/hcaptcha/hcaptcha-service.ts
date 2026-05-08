@@ -1,3 +1,5 @@
+import logger from '../../utils/logger/logger'
+
 class HCaptchaService {
   private readonly secretKey: string
 
@@ -36,8 +38,18 @@ class HCaptchaService {
       if (captchaValidation.success) {
         isVerified = true
       }
+
+      logger.info(
+        {
+          service: 'hcaptcha',
+          success: isVerified,
+          hostname: captchaValidation.hostname,
+          errorCodes: captchaValidation['error-codes'],
+        },
+        'hCaptcha verification completed'
+      )
     } catch (error) {
-      console.error('Error verifying hcaptcha:', error)
+      logger.error({ err: error, service: 'hcaptcha' }, 'Error verifying hCaptcha token')
     }
 
     return isVerified
