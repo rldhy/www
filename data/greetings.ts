@@ -22,7 +22,7 @@ export const GREETINGS: GreetingInfo[] = [
   },
   {
     language: 'Inuktut',
-    message: 'ᕼᐊᓘ ᓄᓇᕐᔪᐊᖅ!',
+    message: 'ᐊᐃᖓᐃ ᓄᓇᕐᔪᐊᖅ!',
     flags: ['ca', 'us', 'gl'],
   },
   {

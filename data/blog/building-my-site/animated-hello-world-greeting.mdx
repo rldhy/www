@@ -1,7 +1,7 @@
 ---
 title: 'Animated Hello World Greeting'
 date: '2026-04-10'
-lastModified: '2026-04-10'
+lastModified: '2026-05-07'
 tags: [next-js, react, typescript, animation, tailwind, homepage, languages]
 draft: false
 summary: 'A breakdown of the animated Hello World component on my homepage.'
@@ -26,6 +26,26 @@ Each greeting entry has:
 - A translated `message`
 - A list of matching `flags`
 
+The data shape is intentionally small:
+
+```ts
+export interface GreetingInfo {
+  language: string
+  message: string
+  flags: string[]
+}
+```
+
+That keeps each greeting easy to read and easy to extend:
+
+```json
+{
+  language: 'Portuguese',
+  message: 'Olá Mundo!',
+  flags: ['pt', 'br']
+}
+```
+
 That means the component does not need to know anything about specific languages ahead of time. It just reads the current greeting object and renders what it gets.
 
 The flags are also defined in the same data layer, with a short code and country name. That makes it easy to map a greeting like French or Arabic to one or more countries without hardcoding flag behavior directly in the component.
@@ -45,11 +65,59 @@ Instead of cycling strictly from top to bottom, the component keeps a list of gr
 
 Once that pool is empty, it is rebuilt from the full greeting list while excluding the greeting that is currently visible. That keeps the animation feeling varied, ensures the same greeting does not immediately repeat when a cycle resets, and avoids the state-mutation issues from an earlier version of the component.
 
+```ts
+function getAvailableGreetingIndices(excludeIndex: number): number[] {
+  return GREETINGS.map((_, index) => index).filter((index) => index !== excludeIndex)
+}
+```
+
+The pool lives in a `ref` because changing it should not trigger a re-render by itself. The visible greeting still lives in React state.
+
+```ts
+const availableGreetingIndices = useRef<number[]>(getAvailableGreetingIndices(0))
+
+function nextGreeting() {
+  if (availableGreetingIndices.current.length === 0) {
+    availableGreetingIndices.current = getAvailableGreetingIndices(greetingIndex)
+  }
+
+  const randomIndex = Math.floor(Math.random() * availableGreetingIndices.current.length)
+  const [nextGreetingIndex] = availableGreetingIndices.current.splice(randomIndex, 1)
+  const nextGreeting = GREETINGS[nextGreetingIndex]
+
+  setGreetingIndex(nextGreetingIndex)
+  setGreeting(nextGreeting)
+  setFlagsHiddenMap(getFlagHiddenMap(new Set(nextGreeting.flags)))
+}
+```
+
 To make the text change feel smoother, the component briefly hides the current greeting, swaps in the next one after a short timeout, and then fades it back in using `Transition` from `@headlessui/react`.
+
+```ts
+function switchGreeting() {
+  if (isShowing) {
+    setIsShowing(false)
+    timeoutRef.current = setTimeout(() => {
+      nextGreeting()
+      setIsShowing(true)
+    }, 100)
+  }
+}
+```
 
 ## Matching greetings to flags
 
 The flag behavior is driven by a visibility map. For every available flag, the component decides whether it should be hidden for the current greeting.
+
+```ts
+function getFlagHiddenMap(showFlags: Set<string>): Map<string, boolean> {
+  const map: Map<string, boolean> = new Map<string, boolean>()
+  FLAGS.forEach((flag) => {
+    map[flag.name] = !showFlags.has(flag.name)
+  })
+  return map
+}
+```
 
 That gives me a flexible setup:
 - English can show multiple flags like the US, UK, Canada, and Australia
@@ -57,6 +125,22 @@ That gives me a flexible setup:
 - Single-country languages can still map cleanly to one flag
 
 The component also supports a `showFlags` prop. If that is disabled, all flags stay hidden and only the text animation remains visible.
+
+```tsx
+{FLAGS.map((flag) => {
+  return (
+    <Image
+      key={flag.name}
+      title={flag.countryName}
+      src={`/static/icons/flags/4x3/${flag.name}.svg`}
+      alt=""
+      className={`${isFlagHidden(flag.name) ? 'm-0 h-0 w-0' : 'h-3/5 w-auto scale-75 rounded-full'}`}
+      width={0}
+      height={0}
+    />
+  )
+})}
+```
 
 ## Manual controls
 
@@ -66,6 +150,25 @@ That button:
 - Starts the interval if the animation is stopped
 - Clears the interval if it is running
 - Prevents multiple timers from stacking on top of each other
+
+```ts
+function startAnimation() {
+  if (!isStarted) {
+    clearInterval(intervalRef.current ?? undefined)
+    intervalRef.current = setInterval(() => {
+      switchGreeting()
+    }, 2500)
+    setIsStarted(true)
+  }
+}
+
+function stopAnimation() {
+  if (isStarted) {
+    clearInterval(intervalRef.current ?? undefined)
+    setIsStarted(false)
+  }
+}
+```
 
 It is a tiny feature, but it makes the component feel more deliberate and user-friendly.
 

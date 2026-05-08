@@ -1,4 +1,5 @@
 import NodeCache from 'node-cache'
+import logger from '../../utils/logger/logger'
 
 class SimpleFileDownloader {
   private cache: NodeCache
@@ -12,11 +13,11 @@ class SimpleFileDownloader {
 
     const cached: Buffer | undefined = this.cache.get(cacheKey)
     if (cached) {
-      console.log(`[${fileName}] served from cache`)
+      logger.info({ service: 'fileDownloader', fileName, cacheKey }, 'File served from cache')
       return cached
     }
 
-    console.log(`[${fileName}] downloading from: ${url}`)
+    logger.info({ service: 'fileDownloader', fileName, cacheKey }, 'Downloading file')
     const response = await fetch(url)
 
     if (!response.ok) {

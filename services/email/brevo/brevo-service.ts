@@ -3,6 +3,7 @@ import {
 } from '@getbrevo/brevo'
 import { buildGetInTouchHtml, GetInTouchArgs } from '../message-builder'
 import { EmailProvider } from '../email-service'
+import logger from '../../../utils/logger/logger'
 
 class BrevoService implements EmailProvider {
   private readonly apiKey: string
@@ -28,9 +29,9 @@ class BrevoService implements EmailProvider {
         to: [{ name: 'Ritwik Lodhiya', email: 'hello@rlodhiya.dev' }],
       })
 
-      console.log(`Email Sent: ${response}`)
+      logger.info({ service: 'email', provider: 'brevo', messageId: response.messageId }, 'Brevo email sent')
     } catch (error) {
-      console.log(`Error sending email: ${error}`)
+      logger.error({ err: error, service: 'email', provider: 'brevo' }, 'Error sending email with Brevo')
       return false
     }
 

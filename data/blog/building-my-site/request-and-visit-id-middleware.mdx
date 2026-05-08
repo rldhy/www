@@ -1,0 +1,202 @@
+---
+title: 'Adding Request and Visit IDs with Next.js Proxy Middleware'
+date: '2026-05-08'
+lastModified: '2026-05-08'
+tags: [next-js, middleware, proxy, logging, observability, uuid]
+draft: false
+summary: 'How I used Next.js proxy middleware to add per-request IDs, week-long visit IDs, and a composable middleware context'
+images: []
+---
+
+Once I added structured server logging, I needed reliable IDs to connect related log lines.
+
+I wanted two different identifiers:
+
+- `requestId`: unique for each request
+- `visitId`: stable for a visitor across page loads for a short period
+
+Those IDs have different jobs, so I kept them separate.
+
+## Why Not Use One ID?
+
+A request ID should answer questions about one specific request:
+
+- What happened during this API call?
+- Which service logs belong to it?
+- How long did it take?
+- Did it return a `200`, `401`, or `500`?
+
+A visit ID answers a broader question:
+
+- Which requests came from the same browser visit?
+
+If I reused one ID for both jobs, the logs would be less useful. A week-long ID is too broad for debugging one API call, and a per-request ID is too short-lived to follow a visitor across pages.
+
+## Using `proxy.ts`
+
+This project uses Next.js 16, where `proxy.ts` is the current request-boundary convention.
+
+The proxy runs before matched routes and lets me pass modified request headers upstream:
+
+```ts
+const response = NextResponse.next({
+  request: {
+    headers: context.requestHeaders,
+  },
+})
+```
+
+That matters because I do not want to mutate `request.headers` directly. Instead, the middleware context owns a cloned `Headers` object.
+
+## Middleware Context
+
+I added a small context type:
+
+```ts
+export type MiddlewareContext = {
+  requestHeaders: Headers
+  requestId?: string
+  visitId?: string
+  hasVisitIdCookie: boolean
+}
+```
+
+The factory clones incoming headers:
+
+```ts
+export function createMiddlewareContext(requestHeaders: Headers): MiddlewareContext {
+  return {
+    requestHeaders: new Headers(requestHeaders),
+    hasVisitIdCookie: false,
+  }
+}
+```
+
+That gives middleware one shared place to store generated IDs and mutate the upstream headers Next will receive.
+
+## Composable Middleware
+
+The proxy file stays focused on orchestration:
+
+```ts
+const requestMiddleware: RequestMiddleware[] = [withRequestId, withVisitId]
+const responseMiddleware: ResponseMiddleware[] = [withRequestIdResponse, withVisitIdResponse]
+```
+
+Request middleware runs before `NextResponse.next()`:
+
+```ts
+requestMiddleware.forEach((middleware) => middleware(request, context))
+```
+
+Response middleware runs after the response exists:
+
+```ts
+return responseMiddleware.reduce(
+  (nextResponse, middleware) => middleware(request, nextResponse, context),
+  response
+)
+```
+
+This makes it easy to add future middleware without stuffing everything into one function.
+
+## Request ID Middleware
+
+The request ID middleware preserves an incoming `x-request-id` when one exists. Otherwise, it generates a UUID:
+
+```ts
+const requestId = request.headers.get('x-request-id') ?? uuid()
+
+context.requestId = requestId
+context.requestHeaders.set('x-request-id', requestId)
+```middleware
+
+The response middleware echoes it back:
+
+```ts
+if (context.requestId) {
+  response.headers.set('x-request-id', context.requestId)
+}
+```
+
+That makes it easy to correlate client-visible failures with server logs.
+
+## Visit ID Middleware
+
+The visit ID middleware uses a cookie:
+
+```ts
+const cookieVisitId = request.cookies.get('visit-id')?.value || undefined
+const hasValidVisitIdCookie = cookieVisitId !== undefined && isUuid(cookieVisitId)
+const visitId = hasValidVisitIdCookie ? cookieVisitId : uuid()
+```
+
+If the cookie is missing, empty, or invalid, the middleware generates a new UUID.
+
+It passes the visit ID upstream:
+
+```ts
+context.visitId = visitId
+context.hasVisitIdCookie = hasValidVisitIdCookie
+context.requestHeaders.set('x-visit-id', visitId)
+```
+
+The response middleware echoes the header and sets the cookie when needed:
+
+```ts
+response.cookies.set('visit-id', context.visitId, {
+  httpOnly: true,
+  maxAge: 60 * 60 * 24 * 7,
+  path: '/',
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production',
+})
+```
+
+I chose one week for the visit ID lifetime. That is long enough to connect nearby page views and API calls, but short enough that it does not become a long-term visitor identifier.
+
+## Route Matching
+
+I matched the routes where these IDs are useful:
+
+```ts
+matcher: [
+  '/api/:path*',
+  '/',
+  '/about',
+  '/contact',
+  '/projects',
+  '/resume',
+  '/tags/:path*',
+  '/blog/:path*',
+]
+```
+
+This covers API routes and main page/blog routes without running the proxy on static asset requests.
+
+## How Logging Uses It
+
+The route logger reads the headers:
+
+```ts
+return logger.child({
+  requestId: getRequestId(req),
+  visitId: getVisitId(req),
+  route,
+  method: req.method,
+})
+```
+
+That keeps ID generation at the request boundary and keeps logging focused on logging. The route handler does not need to know whether an ID came from an incoming header, a cookie, or a newly generated UUID.
+
+## Final Shape
+
+The setup now gives me:
+
+- One unique request ID per request
+- One short-lived visit ID per visitor
+- Request headers that route handlers can read safely
+- Response headers for easier debugging
+- A proxy middleware pattern that can grow
+
+The logging layer and middleware layer stay separate, but they work together through headers. That boundary keeps the code easier to reason about.
