@@ -1698,9 +1698,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@content-collections/core@npm:0.15.0":
-  version: 0.15.0
-  resolution: "@content-collections/core@npm:0.15.0"
+"@content-collections/core@npm:0.15.1":
+  version: 0.15.1
+  resolution: "@content-collections/core@npm:0.15.1"
   dependencies:
     "@standard-schema/spec": ^1.0.0
     camelcase: ^8.0.0
@@ -1708,14 +1708,14 @@ __metadata:
     esbuild: ^0.25.11
     gray-matter: ^4.0.3
     p-limit: ^6.1.0
-    picomatch: ^4.0.2
+    picomatch: ^4.0.4
     pluralize: ^8.0.0
-    serialize-javascript: ^7.0.3
+    serialize-javascript: ^7.0.5
     tinyglobby: ^0.2.5
-    yaml: ^2.4.5
+    yaml: ^2.8.3
   peerDependencies:
     typescript: ^5.0.2 || ^6.0.0
-  checksum: a1a61878307264b1bee82861360b56a37d55c3e657c33c479628b3ff16f6e3c3df40e8a03551e4eee64f776aa75756b55457871b24aa14093f6bc2b7a9387f39
+  checksum: 20c05a7ba7cff6b00c48cfcfea85006c58a60d3da0a4b52f743c158156fe37aa3c83745a3d2cdba8cd26a8b6b30950f770c64d37d84bfd41a7d95dff390c9b79
   languageName: node
   linkType: hard
 
@@ -10031,7 +10031,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.2, picomatch@npm:^4.0.3":
+"picomatch@npm:^4.0.3":
   version: 4.0.3
   resolution: "picomatch@npm:4.0.3"
   checksum: 6817fb74eb745a71445debe1029768de55fd59a42b75606f478ee1d0dc1aa6e78b711d041a7c9d5550e042642029b7f373dc1a43b224c4b7f12d23436735dba0
@@ -11139,7 +11139,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "rlodhiya-personal-site@workspace:."
   dependencies:
-    "@content-collections/core": 0.15.0
+    "@content-collections/core": 0.15.1
     "@content-collections/mdx": 0.2.2
     "@content-collections/next": 0.2.11
     "@eslint/eslintrc": 3.3.5
@@ -11364,10 +11364,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:^7.0.3":
-  version: 7.0.4
-  resolution: "serialize-javascript@npm:7.0.4"
-  checksum: 00a141b57ad3c5efed5499b093c7a7d37237c1980ee2d9475e36c792e2951915550d93be37d10d6e6e20a5bad41177448a3f8135bf30bcb01ff592c13e1f6338
+"serialize-javascript@npm:^7.0.5":
+  version: 7.0.5
+  resolution: "serialize-javascript@npm:7.0.5"
+  checksum: 9e5f4c234c5cfdbe7f720107755ea06f2247d3202a8309e6c6f7dd4241f1dc92ba2e2a3282dcc82796a2ce2a327be48d692790019aeeb681f9870b1d3b49e8b7
   languageName: node
   linkType: hard
 
@@ -12948,12 +12948,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.4.5":
-  version: 2.8.2
-  resolution: "yaml@npm:2.8.2"
+"yaml@npm:^2.8.3":
+  version: 2.9.0
+  resolution: "yaml@npm:2.9.0"
   bin:
     yaml: bin.mjs
-  checksum: 5ffd9f23bc7a450129cbd49dcf91418988f154ede10c83fd28ab293661ac2783c05da19a28d76a22cbd77828eae25d4bd7453f9a9fe2d287d085d72db46fd105
+  checksum: f0f74b349c126bb9acf649be1e7efaec5869b1567bdc047e43b176bcdd7730a9bc7ab8fc9c6b1c358e611fab0fe0a0d8933393f1af383a7dc0b4755a1d5f31f9
   languageName: node
   linkType: hard
 
