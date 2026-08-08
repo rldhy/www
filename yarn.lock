@@ -2370,10 +2370,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hcaptcha/react-hcaptcha@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@hcaptcha/react-hcaptcha@npm:2.0.2"
-  checksum: 1aca4f50aad93c5de8e39a6603ef84bd36a3f38061a63b2a4acb877d1d88c46ac74ad7c052dc9f922faf2f624a7d3e8885d252d8217d33d59bd35f5b0a97538e
+"@hcaptcha/react-hcaptcha@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@hcaptcha/react-hcaptcha@npm:2.1.0"
+  checksum: bb73bcf9782c5cf6baf7c84a07fafd24829a677944e8bf818c6fae2ef305952216d21830d71861cb8fa9b547b21ff306e832ab80dfb91a0bf0572fee28e2d42d
   languageName: node
   linkType: hard
 
@@ -3801,12 +3801,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:26.1.2":
-  version: 26.1.2
-  resolution: "@types/node@npm:26.1.2"
+"@types/node@npm:26.2.0":
+  version: 26.2.0
+  resolution: "@types/node@npm:26.2.0"
   dependencies:
     undici-types: ~8.3.0
-  checksum: c77629c1e656808481bc9853cf0065d53e31dd9630d8c85b922583ada4d05e57db51c0098fd6c9056e21c8a1709294ad30f65a350028181e95220eb4e76405c8
+  checksum: 47d2a053a907758c82b2b1d2b10d53855657715dfb2f1cdfe7f69293982eaa4aab2e9d7cc4bb7fa19be218d1def56bff9c7193f0378e9a0e40d367687756e4d6
   languageName: node
   linkType: hard
 
@@ -6440,9 +6440,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.8.0":
-  version: 10.8.0
-  resolution: "eslint@npm:10.8.0"
+"eslint@npm:10.8.1":
+  version: 10.8.1
+  resolution: "eslint@npm:10.8.1"
   dependencies:
     "@eslint-community/eslint-utils": ^4.8.0
     "@eslint-community/regexpp": ^4.12.2
@@ -6481,7 +6481,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 3c746957d5e95fc888c44c2cd3e61696d7c152273b4c521ee36a4b6ed8f58a34d0ccd3d85a2924404d8c0731cff687d2a64047842cda4e76d34ffe0c453e0b25
+  checksum: 3e12260c5af48faef3d4ae0005c88e41ceded9915a2b67417e8dc5b8668f809095e6e445fa02fbbbe98aa178f08c464f627da0d553fb17952abde4322698d748
   languageName: node
   linkType: hard
 
@@ -9541,6 +9541,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.17":
+  version: 3.3.18
+  resolution: "nanoid@npm:3.3.18"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: db804317d337b41602666f23014e399d1263033d13a903955c246378256fd4e002519e87199ca40b19aff52274965ac7cc6e70c13a63e194e15c4664724602d3
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -10172,14 +10181,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.25":
-  version: 8.5.25
-  resolution: "postcss@npm:8.5.25"
+"postcss@npm:8.5.26":
+  version: 8.5.26
+  resolution: "postcss@npm:8.5.26"
   dependencies:
-    nanoid: ^3.3.16
+    nanoid: ^3.3.17
     picocolors: ^1.1.1
     source-map-js: ^1.2.1
-  checksum: 51e1fa610322a93220a461dc56a952b398d9bdb137e1f2530fed0ddebd37bf07f2729dfce31864b67b742636f30102833924ea600fa11a0f666130a66fae2a53
+  checksum: 719b1acd7db117cffa1514a6ed47e71ba4159ebddd1be2616b65dc1580a6bb9289abb8a78d26e08b45ab5a03277662483a6413e4b08325df0260831f4c2bc11b
   languageName: node
   linkType: hard
 
@@ -11153,7 +11162,7 @@ __metadata:
     "@eslint/eslintrc": 3.3.6
     "@eslint/js": 10.0.1
     "@getbrevo/brevo": 6.0.2
-    "@hcaptcha/react-hcaptcha": 2.0.2
+    "@hcaptcha/react-hcaptcha": 2.1.0
     "@hcaptcha/types": 1.2.0
     "@headlessui/react": 2.2.10
     "@next/bundle-analyzer": 16.3.0
@@ -11162,13 +11171,13 @@ __metadata:
     "@tailwindcss/postcss": 4.3.3
     "@tailwindcss/typography": 0.5.20
     "@types/mdx": 2.0.14
-    "@types/node": 26.1.2
+    "@types/node": 26.2.0
     "@types/react": 19.2.18
     "@typescript-eslint/eslint-plugin": 8.66.0
     "@typescript-eslint/parser": 8.66.0
     cross-env: 10.1.0
     esbuild: 0.28.1
-    eslint: 10.8.0
+    eslint: 10.8.1
     eslint-config-next: 16.3.0
     eslint-config-prettier: 10.1.8
     eslint-plugin-prettier: 5.5.6
@@ -11183,7 +11192,7 @@ __metadata:
     node-cache: 5.1.2
     pino: 10.3.1
     pino-pretty: 13.1.3
-    postcss: 8.5.25
+    postcss: 8.5.26
     prettier: 3.9.6
     prettier-plugin-tailwindcss: 0.8.1
     probe-image-size: 7.3.0
