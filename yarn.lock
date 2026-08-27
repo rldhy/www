@@ -3813,12 +3813,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:26.3.0":
-  version: 26.3.0
-  resolution: "@types/node@npm:26.3.0"
+"@types/node@npm:26.4.0":
+  version: 26.4.0
+  resolution: "@types/node@npm:26.4.0"
   dependencies:
     undici-types: ~8.3.0
-  checksum: cf07e43ff17949e7d27c2a42865d3a2e72e99844b108e161139f2a461342ecc599b16fbf913b1533723fad720971b53e0d4dba888715ed8b237087e41abaab21
+  checksum: ee60581fe5562d7f09397fb142b9b36333f236905623c58940fe5f393d9412780c6cf061dac2050d10b97012d267a6ca40edde008b11263b30f2e4430a364bfb
   languageName: node
   linkType: hard
 
@@ -11065,9 +11065,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resend@npm:6.22.1":
-  version: 6.22.1
-  resolution: "resend@npm:6.22.1"
+"resend@npm:6.24.0":
+  version: 6.24.0
+  resolution: "resend@npm:6.24.0"
   dependencies:
     postal-mime: 2.7.5
     standardwebhooks: 1.0.0
@@ -11076,7 +11076,7 @@ __metadata:
   peerDependenciesMeta:
     "@react-email/render":
       optional: true
-  checksum: 385d986f34a8b8ce42d7ae9b57ad73a6dbbb65816d00baf574153455468270272f3325b0da47659e4dd5ca4bc22d2d6e23c6f830f90c7039e486269963d13255
+  checksum: 67b6005e60635b3ad50c9528f4e8a6b71af4a66c0ef725ff52a7f00c31f6793af8895c905a5bbc8e8ee367f1a296d7d0356e8cf83a15ebc85b331df2a452b992
   languageName: node
   linkType: hard
 
@@ -11172,7 +11172,7 @@ __metadata:
     "@tailwindcss/postcss": 4.3.3
     "@tailwindcss/typography": 0.5.20
     "@types/mdx": 2.0.14
-    "@types/node": 26.3.0
+    "@types/node": 26.4.0
     "@types/react": 19.2.18
     "@typescript-eslint/eslint-plugin": 8.68.0
     "@typescript-eslint/parser": 8.68.0
@@ -11210,7 +11210,7 @@ __metadata:
     remark: 15.0.1
     remark-gfm: 4.0.1
     remark-math: 6.0.0
-    resend: 6.22.1
+    resend: 6.24.0
     tailwindcss: 4.3.3
     typescript: 7.0.2
     typescript-eslint: 8.68.0
