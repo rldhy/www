@@ -1,0 +1,369 @@
+---
+title: 'Building a RAG Agent for Legal Documents: V1'
+date: '2026-08-26'
+lastModified: '2026-08-26'
+tags: ['ai', 'rag', 'local-ai', 'ollama', 'langchain', 'embeddings', 'vector-database', 'vector-search', 'similarity-search', 'legal-tech', 'python', 'docker', 'chroma', 'gemma', 'gemma-3-12b', 'nomic', 'nomic-embed-text-v1']
+draft: false
+summary: 'A local-first RAG system that uses open-source LLMs, embeddings, and vector search to answer questions across legal documents with grounded source citations.'
+images: ['/static/images/legal-doc-agent-banner.png']
+---
+
+[![Project Banner](/static/images/legal-doc-agent-banner.png)](https://github.com/rldhy/legal-doc-agent)
+
+# Building a Local AI Agent for Legal Documents: V1
+
+## Project
+
+The project is available on [GitHub - rldhy/legal-doc-agent](https://github.com/rldhy/legal-doc-agent)
+
+## Intro
+
+I've been looking for a project where I could get hands-on experience building with local LLMs, retrieval-augmented generation (RAG), and some of the tooling that has emerged around modern AI applications. Rather than building another general-purpose chatbot, I wanted to work on a problem where retrieval, grounding, and accuracy actually matter.
+
+Legal documents seemed like an interesting fit.
+
+Contracts and agreements often contain information spread across dozens of pages: parties, dates, responsibilities, financial terms, termination conditions, amendments, and references to other sections or documents. Finding a specific answer can mean manually searching through multiple agreements and interpreting the relevant clauses.
+
+So I started building a local AI application that can ingest a collection of legal documents and answer natural-language questions about them while pointing back to the documents used to produce the answer.
+
+This post covers the first milestone: getting a basic end-to-end RAG pipeline working entirely on my local machine.
+
+## The Goal
+
+For V1, I intentionally kept the scope small.
+
+I wanted to be able to put PDFs into a directory, index them, and then ask questions such as:
+
+> What records must the partnership maintain?
+
+The system should retrieve the relevant portions of the agreements, generate an answer using only that evidence, and provide citations back to the original document and PDF page.
+
+Just as importantly, the system should be able to say that it doesn't have enough information rather than inventing an answer.
+
+The basic flow looks like this:
+
+```text id="zih50n"
+PDF Documents
+      │
+      ▼
+   Parsing
+      │
+      ▼
+   Chunking
+      │
+      ▼
+  Embeddings
+      │
+      ▼
+Vector Database
+      │
+      │
+User Question
+      │
+      ▼
+   Retrieval
+      │
+      ▼
+Relevant Passages
+      │
+      ▼
+  Local LLM
+      │
+      ▼
+Answer + Sources
+```
+
+## Keeping Everything Local
+
+One of my goals was to run the entire AI stack locally.
+
+Legal documents are also a good example of why local inference can be useful. Even though I'm currently developing against public sample agreements, a real system might eventually operate on documents that shouldn't leave the user's environment.
+
+I'm using Ollama inside Docker with access to my NVIDIA GPU. For V1, I'm running Gemma 3 12B as the generation model and a separate embedding model (nomic-embed-text-v1) for semantic retrieval.
+
+My Python application communicates with Ollama over its local API, so from the application's perspective the model server is simply another local service:
+
+```text id="8zwhds"
+Python / LangChain
+       │
+       │ HTTP
+       ▼
+     Ollama
+       │
+       ▼
+   Local GPU
+```
+
+This also gives me a clean boundary between the application and model serving. I can experiment with different models without redesigning the rest of the system.
+
+## Ingesting Legal Documents
+
+The first step is turning PDFs into something the retrieval system can understand.
+
+I use `pypdf` to extract each page and convert it into a LangChain `Document`. Along with the text, I preserve metadata including the filename and PDF page number.
+
+Conceptually, a page becomes:
+
+```python id="woxj0k"
+Document(
+    page_content="...",
+    metadata={
+        "filename": "partnership-agreement.pdf",
+        "page_number": 14,
+        "document_hash": "...",
+    },
+)
+```
+
+That metadata turned out to be an important design decision.
+
+Rather than asking the language model to figure out where information came from after generating an answer, provenance travels through the entire pipeline alongside the text.
+
+## Chunking
+
+Individual pages are still too large and imprecise to use directly for retrieval, so each page is divided into smaller overlapping chunks.
+
+For V1, I'm deliberately using relatively simple recursive character-based splitting.
+
+```text id="h01d6n"
+PDF
+ │
+ ├── Page 1
+ │    ├── Chunk 1
+ │    ├── Chunk 2
+ │    └── Chunk 3
+ │
+ ├── Page 2
+ │    ├── Chunk 4
+ │    └── Chunk 5
+ │
+ ...
+```
+
+Each resulting chunk retains the metadata from its original page.
+
+This isn't necessarily the ideal strategy for legal documents. Contracts already have meaningful structure—articles, sections, subsections, definitions, schedules—and blindly splitting text can separate a clause from the context needed to interpret it.
+
+But starting with simple chunking gives me a baseline that I can measure future approaches against.
+
+## Semantic Retrieval
+
+Once the chunks are generated, I create embeddings locally using Ollama and store them in Chroma.
+
+When a user asks:
+
+> What records must the partnership maintain?
+
+the question is embedded and compared against the indexed document chunks.
+
+The system retrieves the most semantically relevant passages before the LLM sees anything.
+
+For one of my sample partnership agreements, retrieval found:
+
+```text id="f7vk62"
+6.1 BOOKS AND RECORDS
+
+The Partnership shall maintain or cause to be maintained
+at an office of the Partnership this Agreement and all
+amendments thereto and full and accurate books of the
+Partnership showing all receipts and expenditures,
+assets and liabilities, Profits and Losses...
+```
+
+This was an important milestone because retrieval found the exact governing provision without the LLM being involved.
+
+That's a distinction I've found useful while building this project: **retrieval quality and generation quality are separate problems**.
+
+A language model can produce a convincing answer from bad context. So before adding generation, I spent time looking directly at the retrieved chunks and asking a simpler question:
+
+> Did the retrieval system actually put the evidence needed to answer the question in front of the model?
+
+If the answer is no, making the prompt more sophisticated doesn't solve the underlying problem.
+
+## Grounded Generation
+
+Once retrieval was working, I added Gemma back into the pipeline.
+
+The model receives the user's question along with only the retrieved passages and is instructed to answer from that evidence.
+
+The resulting flow is:
+
+```text id="wspspe"
+"What records must the partnership maintain?"
+                  │
+                  ▼
+          Semantic Search
+                  │
+                  ▼
+          Relevant Chunks
+                  │
+                  ▼
+             Gemma 3
+                  │
+                  ▼
+         Structured Answer
+```
+
+For the example above, V1 produces an answer similar to:
+
+> The Partnership must maintain its Agreement and all amendments thereto, full and accurate books showing all receipts and expenditures, assets and liabilities, Profits and Losses, and all other books, records and information required by the Act as necessary for recording the Partnership's business and affairs. These records must be maintained until two years after termination and liquidation of the Partnership.
+
+And, importantly:
+
+```text id="3t16pg"
+Sources:
+- sample-partnership-agreement.pdf, PDF page 14
+```
+
+## Making Citations More Trustworthy
+
+Citation handling was one area where I didn't want to simply trust the model.
+
+The model returns a structured response containing its answer and references to the retrieved sources that support it.
+
+The application then validates those references.
+
+If five passages were provided to the model, for example, a reference to "Source 12" cannot possibly be valid.
+
+The application also maps those references back to metadata that came directly from document ingestion.
+
+That means the final citation is rendered by the application:
+
+```text id="mgnt6u"
+sample-partnership-agreement.pdf, PDF page 14
+```
+
+rather than generated from scratch by the LLM.
+
+It's still not perfect evidence verification—the model is choosing which retrieved passage supports its claim—but it provides a much better foundation than asking an unconstrained model to generate citations as text.
+
+## Idempotent Indexing
+
+Another small but important engineering problem appeared once I separated indexing from querying.
+
+I didn't want every application startup to:
+
+```text id="u5zofl"
+parse PDFs → chunk → embed → index
+```
+
+Instead, indexing and querying are now separate operations.
+
+Each document gets a SHA-256 fingerprint based on its contents.
+
+When the indexer runs:
+
+```text id="cf4v1i"
+New document
+      │
+      └── Index it
+
+Unchanged document
+      │
+      └── Skip it
+
+Modified document
+      │
+      └── Remove old chunks
+          and re-index it
+```
+
+The chunks themselves also have deterministic IDs.
+
+This means I can add or modify documents and rerun the indexer without continuously filling the vector database with duplicate embeddings.
+
+## The V1 CLI
+
+The project currently exposes a simple interactive CLI:
+
+```text id="sjxtme"
+$ python -m agent.main
+
+Legal Document Agent
+Type 'quit' or 'exit' to stop.
+
+> What records must the partnership maintain?
+
+The Partnership must maintain its Agreement and all
+amendments thereto, full and accurate books...
+
+Sources:
+- sample-partnership-agreement.pdf, PDF page 14
+
+>
+```
+
+It's deliberately simple, but at this point the complete system works:
+
+```text id="tkalol"
+Local PDFs
+    ↓
+PDF parsing
+    ↓
+Chunking + metadata
+    ↓
+Local embeddings
+    ↓
+Persistent Chroma index
+    ↓
+Semantic retrieval
+    ↓
+Local Gemma 3 model
+    ↓
+Structured response
+    ↓
+Validated source citations
+```
+
+For me, that's a good stopping point for V1.
+
+## What I Learned
+
+The biggest takeaway so far is that building a useful RAG system involves much more than connecting a vector database to an LLM.
+
+The model is only one component.
+
+Document parsing matters. Chunk boundaries matter. Metadata matters. Retrieval quality matters. Citation provenance matters. And application logic needs to validate things the model shouldn't be trusted to enforce on its own.
+
+Legal documents make those problems especially visible.
+
+One interesting example appeared almost immediately: tables of contents.
+
+A question about "capital contributions" may retrieve the actual Capital Contributions clause—but the table of contents also contains the exact phrase "Capital Contributions." From an embedding model's perspective, that can be an excellent semantic match even though it contains almost none of the information needed to answer the question.
+
+That's the kind of problem that doesn't show up in a simple architecture diagram.
+
+## What's Next
+
+There are several directions I want to explore beyond V1.
+
+The biggest is making retrieval more aware of legal-document structure. Instead of splitting documents primarily by character count, I'd like to recognize articles, sections, subsections, definitions, and other structural elements.
+
+That could eventually produce citations such as:
+
+```text id="7h3syg"
+California Newspapers Partnership Agreement
+§ 6.1 — Books and Records
+PDF page 14
+```
+
+rather than just a page number.
+
+I also want to explore:
+
+* detecting and down-ranking table-of-contents content;
+* hybrid semantic and keyword retrieval;
+* retrieval reranking;
+* structured extraction of parties, dates, events, and obligations;
+* reasoning across multiple related agreements;
+* understanding amendments and superseded provisions;
+* evaluating retrieval and citation accuracy with a known-answer test set;
+* and eventually introducing agentic workflows where the model can decide when additional document searches are necessary.
+
+That last step is where I expect tools like LangGraph to become much more interesting.
+
+For now, though, I'm happy with the V1 milestone: a fully local RAG pipeline that can ingest real legal documents, answer natural-language questions about them, and point back to the evidence it used.
+
+The next challenge is making that retrieval increasingly reliable.
+
+The source code and setup instructions are available on [GitHub](https://github.com/rldhy/legal-doc-agent), and I’ll continue updating the project as I work through the next set of retrieval and document-reasoning improvements.
