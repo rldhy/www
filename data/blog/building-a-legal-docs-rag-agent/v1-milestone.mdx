@@ -1,8 +1,8 @@
 ---
 title: 'Building a RAG Agent for Legal Documents: V1'
 date: '2026-08-26'
-lastModified: '2026-08-26'
-tags: ['ai', 'rag', 'local-ai', 'ollama', 'langchain', 'embeddings', 'vector-database', 'vector-search', 'similarity-search', 'legal-tech', 'python', 'docker', 'chroma', 'gemma', 'gemma-3-12b', 'nomic', 'nomic-embed-text-v1']
+lastModified: '2026-08-28'
+tags: ['ai', 'rag', 'local-ai', 'ollama', 'langchain', 'embeddings', 'vector-database', 'vector-search', 'similarity-search', 'legal-tech', 'python', 'uv', 'docker', 'chroma', 'gemma', 'gemma-3-12b', 'nomic', 'nomic-embed-text-v1']
 draft: false
 summary: 'A local-first RAG system that uses open-source LLMs, embeddings, and vector search to answer questions across legal documents with grounded source citations.'
 images: ['/static/images/legal-doc-agent-banner.png']
@@ -277,7 +277,7 @@ This means I can add or modify documents and rerun the indexer without continuou
 The project currently exposes a simple interactive CLI:
 
 ```text id="sjxtme"
-$ python -m agent.main
+$ uv run query-agent
 
 Legal Document Agent
 Type 'quit' or 'exit' to stop.
