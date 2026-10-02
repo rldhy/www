@@ -3887,12 +3887,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:26.6.3":
-  version: 26.6.3
-  resolution: "@types/node@npm:26.6.3"
+"@types/node@npm:26.6.4":
+  version: 26.6.4
+  resolution: "@types/node@npm:26.6.4"
   dependencies:
     undici-types: ~8.9.0
-  checksum: 1a1c7a5156c7bfac32282ed331965b4f56719e01b2ca5e882f248ed571972271b6486ee9e28957c7fba50332a7f9e2c4c1cb9a870bbeddb36fde71a9485093f2
+  checksum: b40a51a6b095e2f696d4127e0fe617fa5c74fe9b8a3783115af04c3108f5f063e46ea44b8d2a0eff895f67a0d4ea5dd4eece7df34a0748f14484e1c75d8ae306
   languageName: node
   linkType: hard
 
@@ -6553,9 +6553,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:10.11.0":
-  version: 10.11.0
-  resolution: "eslint@npm:10.11.0"
+"eslint@npm:10.12.0":
+  version: 10.12.0
+  resolution: "eslint@npm:10.12.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.8.0
     "@eslint-community/regexpp": ^4.12.2
@@ -6594,7 +6594,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 4836916ccd27397c16f464658ba293797abee7967cae6bdff0134381897766d00489751b6be2c3a95e21d8f18e4ff154b5b99f0e233bdc2f7f882676313ec0cb
+  checksum: bc29fb7090ad78b0f366237a2ade2a0ee00d27de5cdaf8caf9309e31c51a41dceb120639335f7cd635fc0da01194ad99c1bec368a6e6a8400a32e410b8f7b2ac
   languageName: node
   linkType: hard
 
@@ -7146,10 +7146,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.12.0":
-  version: 17.12.0
-  resolution: "globals@npm:17.12.0"
-  checksum: e93793811268f69ea7b8dc7e45e09de08a06b96b21038c240d185625e313adb15f08a0b5e5bcb8502fa87232f9d6498c0adfd89bbf06c31c37609cf4d612fa27
+"globals@npm:17.13.0":
+  version: 17.13.0
+  resolution: "globals@npm:17.13.0"
+  checksum: d52fbe6fafa4458756f2237fd785516311aa2c5fe2c5f1e29a7130915a2abbaab2021af8b7bdda86111af24586a0377847048e2233e029fb4d921794722b112a
   languageName: node
   linkType: hard
 
@@ -10259,9 +10259,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino@npm:10.3.1":
-  version: 10.3.1
-  resolution: "pino@npm:10.3.1"
+"pino@npm:10.4.0":
+  version: 10.4.0
+  resolution: "pino@npm:10.4.0"
   dependencies:
     "@pinojs/redact": ^0.4.0
     atomic-sleep: ^1.0.0
@@ -10270,13 +10270,13 @@ __metadata:
     pino-std-serializers: ^7.0.0
     process-warning: ^5.0.0
     quick-format-unescaped: ^4.0.3
-    real-require: ^0.2.0
+    real-require: ^1.0.0
     safe-stable-stringify: ^2.3.1
     sonic-boom: ^4.0.1
     thread-stream: ^4.0.0
   bin:
     pino: bin.js
-  checksum: 873625ee206cfc26a48fa537dcfdc160768fbe39885e4005c47a00249d69aab32112bbef1979e7fc035723e6e9f782c852796dae4e4106c77472dab42002cb7e
+  checksum: 4da3aa29e48d8ec13bd9606a6b4cd5179a33c8540cf77817f803517e4322fd976f0a777fac6a121da86a9b9a01447bf3b23cb179042ae6fb08a16b6e3d85b65e
   languageName: node
   linkType: hard
 
@@ -10577,6 +10577,13 @@ __metadata:
   version: 0.2.0
   resolution: "real-require@npm:0.2.0"
   checksum: fa060f19f2f447adf678d1376928c76379dce5f72bd334da301685ca6cdcb7b11356813332cc243c88470796bc2e2b1e2917fc10df9143dd93c2ea608694971d
+  languageName: node
+  linkType: hard
+
+"real-require@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "real-require@npm:1.0.0"
+  checksum: ac2ae7681e20c92be45a5f49110414af1576c7b4512869c2260076a69fc7c336335ef354f466a3be92e779c55b8df0b0043d191797d82d7f18e6310958e5a890
   languageName: node
   linkType: hard
 
@@ -11204,9 +11211,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resend@npm:6.31.0":
-  version: 6.31.0
-  resolution: "resend@npm:6.31.0"
+"resend@npm:6.32.0":
+  version: 6.32.0
+  resolution: "resend@npm:6.32.0"
   dependencies:
     postal-mime: 2.7.6
     standardwebhooks: 1.1.1
@@ -11215,7 +11222,7 @@ __metadata:
   peerDependenciesMeta:
     "@react-email/render":
       optional: true
-  checksum: a8f7846d4ec59be1602bf112d3633dfe779171b3569c14cc6458ca64545b5139d2a57e4c68b40d3c601305a9c07dc68d65c26f44cfc612e5cc929ad0a103bc1e
+  checksum: 4e1328015400b96526bf3ae792f8f128ee37a2bc4bee79f2de695eccd26ea06847020eaf74aaf8ff2d4548dd24ab41142439001868ed7c8eb9e4f05de8ea5540
   languageName: node
   linkType: hard
 
@@ -11311,18 +11318,18 @@ __metadata:
     "@tailwindcss/postcss": 4.3.3
     "@tailwindcss/typography": 0.5.20
     "@types/mdx": 2.0.14
-    "@types/node": 26.6.3
+    "@types/node": 26.6.4
     "@types/react": 19.3.0
     "@typescript-eslint/eslint-plugin": 8.71.0
     "@typescript-eslint/parser": 8.71.0
     cross-env: 10.1.0
     esbuild: 0.28.2
-    eslint: 10.11.0
+    eslint: 10.12.0
     eslint-config-next: 16.3.8
     eslint-config-prettier: 10.1.8
     eslint-plugin-prettier: 5.5.6
     github-slugger: 2.0.0
-    globals: 17.12.0
+    globals: 17.13.0
     gray-matter: 4.0.3
     image-size: 2.0.4
     kbar: 1.0.0
@@ -11330,7 +11337,7 @@ __metadata:
     next: 16.3.8
     next-themes: 0.4.6
     node-cache: 5.1.2
-    pino: 10.3.1
+    pino: 10.4.0
     pino-pretty: 13.1.3
     postcss: 8.5.28
     prettier: 3.9.9
@@ -11349,7 +11356,7 @@ __metadata:
     remark: 15.0.1
     remark-gfm: 4.0.1
     remark-math: 6.0.0
-    resend: 6.31.0
+    resend: 6.32.0
     tailwindcss: 4.3.3
     typescript: 7.0.2
     typescript-eslint: 8.71.0
