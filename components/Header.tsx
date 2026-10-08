@@ -1,7 +1,7 @@
 import siteMetadata from '@/data/siteMetadata'
-import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
 import Link from './Link'
+import DesktopNav from './DesktopNav'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
@@ -20,15 +20,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        {headerNavLinks.map((link) => (
-          <Link
-            key={link.title}
-            href={link.href}
-            className="hover:text-primary-500 dark:hover:text-primary-500 hidden font-medium text-gray-900 sm:block dark:text-gray-100"
-          >
-            {link.title}
-          </Link>
-        ))}
+        <DesktopNav />
         <SearchButton />
         <ThemeSwitch />
         <MobileNav />
